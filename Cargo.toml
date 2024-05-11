@@ -1,0 +1,104 @@
+[package]
+name = "ch32-metapac"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ch32-rs/ch32-data"
+homepage = "https://github.com/ch32-rs/ch32-data"
+description = "Peripheral Access Crate (PAC) for all WCH's MCU chips, including metadata."
+authors = ["Andelf <andelf@gmail.com>"]
+documentation = "https://docs.rs/ch32-metapac"
+categories = ["embedded", "no-std", "hardware-support"]
+keywords = ["wch", "ch32", "svd2rust", "no_std", "embedded"]
+readme = "README.md"
+
+# `cargo publish` is unable to figure out which .rs files are needed due to the include! magic.
+include = ["**/*.rs", "**/*.x", "Cargo.toml"]
+
+[package.metadata.docs.rs]
+features = ["ch32v307vct6", "pac", "metadata"]
+default-target = "riscv32imac-unknown-none-eabihf"
+targets = []
+
+[package.metadata.embassy_docs]
+features = ["pac", "metadata"]
+flavors = [
+    { regex_feature = "ch32v0.*", target = "riscv32i-unknown-none-eabi" },
+    { regex_feature = "ch32v1.*", target = "riscv32imac-unknown-none-elf" },
+    { regex_feature = "ch32v2.*", target = "riscv32imac-unknown-none-elf" },
+    { regex_feature = "ch32v3.*", target = "riscv32imacf-unknown-none-elf" },
+    { regex_feature = "ch32x0.*", target = "riscv32imac-unknown-none-elf" },
+    { regex_feature = "ch32l1.*", target = "riscv32imac-unknown-none-elf" },
+]
+
+[dependencies]
+riscv = "0.11.1"
+# riscv-rt = { version = "0.12.2", optional = true }
+vcell = "0.1"
+
+[features]
+default = ["pac"]
+
+# Build the actual PAC. Set by default.
+# If you just want the metadata, unset it with `default-features = false`.
+pac = []
+
+# Build the chip metadata.
+# If set, a const `ch32_metapac::METADATA` will be exported, containing all the
+# metadata for the currently selected chip.
+metadata = []
+
+rt = []
+memory-x = []
+
+# Chip-selection features
+ch32v002x4x6 = []
+ch32v003a4m6 = []
+ch32v003f4p6 = []
+ch32v003f4u6 = []
+ch32v003j4m6 = []
+ch32v003x4x6 = []
+ch32v004x6x1 = []
+ch32v005x6x6 = []
+ch32v006x8x6 = []
+ch32v007x8x6 = []
+ch32v103c6t6 = []
+ch32v103c8t6 = []
+ch32v103c8u6 = []
+ch32v103r8t6 = []
+ch32v203c6t6 = []
+ch32v203c8t6 = []
+ch32v203c8u6 = []
+ch32v203f6p6 = []
+ch32v203f8p6 = []
+ch32v203f8u6 = []
+ch32v203g6u6 = []
+ch32v203g8r6 = []
+ch32v203k6t6 = []
+ch32v203k8t6 = []
+ch32v203rbt6 = []
+ch32v208cbu6 = []
+ch32v208gbu6 = []
+ch32v208rbt6 = []
+ch32v208wbu6 = []
+ch32v303cbt6 = []
+ch32v303rbt6 = []
+ch32v303rct6 = []
+ch32v303vct6 = []
+ch32v305fbp6 = []
+ch32v305gbu6 = []
+ch32v305rbt6 = []
+ch32v307rct6 = []
+ch32v307vct6 = []
+ch32v307wcu6 = []
+ch32x033f8p6 = []
+ch32x034f8p6 = []
+ch32x034f8u6 = []
+ch32x035c8t6 = []
+ch32x035f7p6 = []
+ch32x035f8u6 = []
+ch32x035g8r6 = []
+ch32x035g8u6 = []
+ch32x035r8t6 = []
+ch641 = []
+ch643 = []
