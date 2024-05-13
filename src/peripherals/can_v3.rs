@@ -36,13 +36,9 @@ impl Can {
     }
     #[doc = "CAN receive FIFO 0 register."]
     #[inline(always)]
-    pub const fn rfifo0(self) -> crate::common::Reg<regs::Rfifo0, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x0cusize) as _) }
-    }
-    #[doc = "CAN receive FIFO 1 register."]
-    #[inline(always)]
-    pub const fn rfifo1(self) -> crate::common::Reg<regs::Rfifo1, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x10usize) as _) }
+    pub const fn rfifo(self, n: usize) -> crate::common::Reg<regs::Rfifo, crate::common::RW> {
+        assert!(n < 2usize);
+        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x0cusize + n * 32usize) as _) }
     }
     #[doc = "CAN interrupt enable register."]
     #[inline(always)]
@@ -58,6 +54,16 @@ impl Can {
     #[inline(always)]
     pub const fn btimr(self) -> crate::common::Reg<regs::Btimr, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x1cusize) as _) }
+    }
+    #[doc = "CAN time trigger control register."]
+    #[inline(always)]
+    pub const fn ttctlr(self) -> crate::common::Reg<regs::Ttctlr, crate::common::RW> {
+        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x20usize) as _) }
+    }
+    #[doc = "CAN Time Trigger Count Value Register."]
+    #[inline(always)]
+    pub const fn ttcnt(self) -> crate::common::Reg<u16, crate::common::RW> {
+        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x24usize) as _) }
     }
     #[doc = "CAN TX mailbox identifier register."]
     #[inline(always)]
@@ -753,11 +759,11 @@ pub mod regs {
             Intenr(0)
         }
     }
-    #[doc = "CAN receive FIFO 0 register."]
+    #[doc = "CAN receive FIFO 0/1 register."]
     #[repr(transparent)]
     #[derive(Copy, Clone, Eq, PartialEq)]
-    pub struct Rfifo0(pub u32);
-    impl Rfifo0 {
+    pub struct Rfifo(pub u32);
+    impl Rfifo {
         #[doc = "FIFO 0 message pending."]
         #[inline(always)]
         pub const fn fmp0(&self) -> u8 {
@@ -771,98 +777,42 @@ pub mod regs {
         }
         #[doc = "FIFO 0 full."]
         #[inline(always)]
-        pub const fn full0(&self) -> bool {
+        pub const fn full(&self) -> bool {
             let val = (self.0 >> 3usize) & 0x01;
             val != 0
         }
         #[doc = "FIFO 0 full."]
         #[inline(always)]
-        pub fn set_full0(&mut self, val: bool) {
+        pub fn set_full(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 3usize)) | (((val as u32) & 0x01) << 3usize);
         }
         #[doc = "FIFO 0 overrun."]
         #[inline(always)]
-        pub const fn fovr0(&self) -> bool {
+        pub const fn fovr(&self) -> bool {
             let val = (self.0 >> 4usize) & 0x01;
             val != 0
         }
         #[doc = "FIFO 0 overrun."]
         #[inline(always)]
-        pub fn set_fovr0(&mut self, val: bool) {
+        pub fn set_fovr(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u32) & 0x01) << 4usize);
         }
         #[doc = "Release FIFO 0 output mailbox."]
         #[inline(always)]
-        pub const fn rfom0(&self) -> bool {
+        pub const fn rfom(&self) -> bool {
             let val = (self.0 >> 5usize) & 0x01;
             val != 0
         }
         #[doc = "Release FIFO 0 output mailbox."]
         #[inline(always)]
-        pub fn set_rfom0(&mut self, val: bool) {
+        pub fn set_rfom(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u32) & 0x01) << 5usize);
         }
     }
-    impl Default for Rfifo0 {
+    impl Default for Rfifo {
         #[inline(always)]
-        fn default() -> Rfifo0 {
-            Rfifo0(0)
-        }
-    }
-    #[doc = "CAN receive FIFO 1 register."]
-    #[repr(transparent)]
-    #[derive(Copy, Clone, Eq, PartialEq)]
-    pub struct Rfifo1(pub u32);
-    impl Rfifo1 {
-        #[doc = "FIFO 1 message pending."]
-        #[inline(always)]
-        pub const fn fmp1(&self) -> u8 {
-            let val = (self.0 >> 0usize) & 0x03;
-            val as u8
-        }
-        #[doc = "FIFO 1 message pending."]
-        #[inline(always)]
-        pub fn set_fmp1(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 0usize)) | (((val as u32) & 0x03) << 0usize);
-        }
-        #[doc = "FIFO 1 full."]
-        #[inline(always)]
-        pub const fn full1(&self) -> bool {
-            let val = (self.0 >> 3usize) & 0x01;
-            val != 0
-        }
-        #[doc = "FIFO 1 full."]
-        #[inline(always)]
-        pub fn set_full1(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 3usize)) | (((val as u32) & 0x01) << 3usize);
-        }
-        #[doc = "FIFO 1 overrun."]
-        #[inline(always)]
-        pub const fn fovr1(&self) -> bool {
-            let val = (self.0 >> 4usize) & 0x01;
-            val != 0
-        }
-        #[doc = "FIFO 1 overrun."]
-        #[inline(always)]
-        pub fn set_fovr1(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u32) & 0x01) << 4usize);
-        }
-        #[doc = "Release FIFO 1 output mailbox."]
-        #[inline(always)]
-        pub const fn rfom1(&self) -> bool {
-            let val = (self.0 >> 5usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Release FIFO 1 output mailbox."]
-        #[inline(always)]
-        pub fn set_rfom1(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u32) & 0x01) << 5usize);
-        }
-    }
-    impl Default for Rfifo1 {
-        #[inline(always)]
-        fn default() -> Rfifo1 {
-            Rfifo1(0)
+        fn default() -> Rfifo {
+            Rfifo(0)
         }
     }
     #[doc = "CAN receive FIFO mailbox data high register."]
@@ -1138,168 +1088,78 @@ pub mod regs {
     impl Tstatr {
         #[doc = "Request completed mailbox0."]
         #[inline(always)]
-        pub const fn rqcp0(&self) -> bool {
-            let val = (self.0 >> 0usize) & 0x01;
+        pub const fn rqcp(&self, n: usize) -> bool {
+            assert!(n < 3usize);
+            let offs = 0usize + n * 8usize;
+            let val = (self.0 >> offs) & 0x01;
             val != 0
         }
         #[doc = "Request completed mailbox0."]
         #[inline(always)]
-        pub fn set_rqcp0(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 0usize)) | (((val as u32) & 0x01) << 0usize);
+        pub fn set_rqcp(&mut self, n: usize, val: bool) {
+            assert!(n < 3usize);
+            let offs = 0usize + n * 8usize;
+            self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
         }
         #[doc = "Transmission OK of mailbox0."]
         #[inline(always)]
-        pub const fn txok0(&self) -> bool {
-            let val = (self.0 >> 1usize) & 0x01;
+        pub const fn txok(&self, n: usize) -> bool {
+            assert!(n < 3usize);
+            let offs = 1usize + n * 8usize;
+            let val = (self.0 >> offs) & 0x01;
             val != 0
         }
         #[doc = "Transmission OK of mailbox0."]
         #[inline(always)]
-        pub fn set_txok0(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 1usize)) | (((val as u32) & 0x01) << 1usize);
+        pub fn set_txok(&mut self, n: usize, val: bool) {
+            assert!(n < 3usize);
+            let offs = 1usize + n * 8usize;
+            self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
         }
         #[doc = "Arbitration lost for mailbox0."]
         #[inline(always)]
-        pub const fn alst0(&self) -> bool {
-            let val = (self.0 >> 2usize) & 0x01;
+        pub const fn alst(&self, n: usize) -> bool {
+            assert!(n < 3usize);
+            let offs = 2usize + n * 8usize;
+            let val = (self.0 >> offs) & 0x01;
             val != 0
         }
         #[doc = "Arbitration lost for mailbox0."]
         #[inline(always)]
-        pub fn set_alst0(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 2usize)) | (((val as u32) & 0x01) << 2usize);
+        pub fn set_alst(&mut self, n: usize, val: bool) {
+            assert!(n < 3usize);
+            let offs = 2usize + n * 8usize;
+            self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
         }
         #[doc = "Transmission error of mailbox0."]
         #[inline(always)]
-        pub const fn terr0(&self) -> bool {
-            let val = (self.0 >> 3usize) & 0x01;
+        pub const fn terr(&self, n: usize) -> bool {
+            assert!(n < 3usize);
+            let offs = 3usize + n * 8usize;
+            let val = (self.0 >> offs) & 0x01;
             val != 0
         }
         #[doc = "Transmission error of mailbox0."]
         #[inline(always)]
-        pub fn set_terr0(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 3usize)) | (((val as u32) & 0x01) << 3usize);
+        pub fn set_terr(&mut self, n: usize, val: bool) {
+            assert!(n < 3usize);
+            let offs = 3usize + n * 8usize;
+            self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
         }
         #[doc = "Abort request for mailbox0."]
         #[inline(always)]
-        pub const fn abrq0(&self) -> bool {
-            let val = (self.0 >> 7usize) & 0x01;
+        pub const fn abrq(&self, n: usize) -> bool {
+            assert!(n < 3usize);
+            let offs = 7usize + n * 8usize;
+            let val = (self.0 >> offs) & 0x01;
             val != 0
         }
         #[doc = "Abort request for mailbox0."]
         #[inline(always)]
-        pub fn set_abrq0(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 7usize)) | (((val as u32) & 0x01) << 7usize);
-        }
-        #[doc = "Request completed mailbox1."]
-        #[inline(always)]
-        pub const fn rqcp1(&self) -> bool {
-            let val = (self.0 >> 8usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Request completed mailbox1."]
-        #[inline(always)]
-        pub fn set_rqcp1(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 8usize)) | (((val as u32) & 0x01) << 8usize);
-        }
-        #[doc = "Transmission OK of mailbox1."]
-        #[inline(always)]
-        pub const fn txok1(&self) -> bool {
-            let val = (self.0 >> 9usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Transmission OK of mailbox1."]
-        #[inline(always)]
-        pub fn set_txok1(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 9usize)) | (((val as u32) & 0x01) << 9usize);
-        }
-        #[doc = "Arbitration lost for mailbox1."]
-        #[inline(always)]
-        pub const fn alst1(&self) -> bool {
-            let val = (self.0 >> 10usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Arbitration lost for mailbox1."]
-        #[inline(always)]
-        pub fn set_alst1(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 10usize)) | (((val as u32) & 0x01) << 10usize);
-        }
-        #[doc = "Transmission error of mailbox1."]
-        #[inline(always)]
-        pub const fn terr1(&self) -> bool {
-            let val = (self.0 >> 11usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Transmission error of mailbox1."]
-        #[inline(always)]
-        pub fn set_terr1(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 11usize)) | (((val as u32) & 0x01) << 11usize);
-        }
-        #[doc = "Abort request for mailbox 1."]
-        #[inline(always)]
-        pub const fn abrq1(&self) -> bool {
-            let val = (self.0 >> 15usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Abort request for mailbox 1."]
-        #[inline(always)]
-        pub fn set_abrq1(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 15usize)) | (((val as u32) & 0x01) << 15usize);
-        }
-        #[doc = "Request completed mailbox2."]
-        #[inline(always)]
-        pub const fn rqcp2(&self) -> bool {
-            let val = (self.0 >> 16usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Request completed mailbox2."]
-        #[inline(always)]
-        pub fn set_rqcp2(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 16usize)) | (((val as u32) & 0x01) << 16usize);
-        }
-        #[doc = "Transmission OK of mailbox 2."]
-        #[inline(always)]
-        pub const fn txok2(&self) -> bool {
-            let val = (self.0 >> 17usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Transmission OK of mailbox 2."]
-        #[inline(always)]
-        pub fn set_txok2(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 17usize)) | (((val as u32) & 0x01) << 17usize);
-        }
-        #[doc = "Arbitration lost for mailbox 2."]
-        #[inline(always)]
-        pub const fn alst2(&self) -> bool {
-            let val = (self.0 >> 18usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Arbitration lost for mailbox 2."]
-        #[inline(always)]
-        pub fn set_alst2(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 18usize)) | (((val as u32) & 0x01) << 18usize);
-        }
-        #[doc = "Transmission error of mailbox 2."]
-        #[inline(always)]
-        pub const fn terr2(&self) -> bool {
-            let val = (self.0 >> 19usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Transmission error of mailbox 2."]
-        #[inline(always)]
-        pub fn set_terr2(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 19usize)) | (((val as u32) & 0x01) << 19usize);
-        }
-        #[doc = "Abort request for mailbox 2."]
-        #[inline(always)]
-        pub const fn abrq2(&self) -> bool {
-            let val = (self.0 >> 23usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Abort request for mailbox 2."]
-        #[inline(always)]
-        pub fn set_abrq2(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 23usize)) | (((val as u32) & 0x01) << 23usize);
+        pub fn set_abrq(&mut self, n: usize, val: bool) {
+            assert!(n < 3usize);
+            let offs = 7usize + n * 8usize;
+            self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
         }
         #[doc = "Mailbox code."]
         #[inline(always)]
@@ -1314,75 +1174,84 @@ pub mod regs {
         }
         #[doc = "Transmit mailbox 0 empty."]
         #[inline(always)]
-        pub const fn tme0(&self) -> bool {
-            let val = (self.0 >> 26usize) & 0x01;
+        pub const fn tme(&self, n: usize) -> bool {
+            assert!(n < 3usize);
+            let offs = 26usize + n * 1usize;
+            let val = (self.0 >> offs) & 0x01;
             val != 0
         }
         #[doc = "Transmit mailbox 0 empty."]
         #[inline(always)]
-        pub fn set_tme0(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 26usize)) | (((val as u32) & 0x01) << 26usize);
-        }
-        #[doc = "Transmit mailbox 1 empty."]
-        #[inline(always)]
-        pub const fn tme1(&self) -> bool {
-            let val = (self.0 >> 27usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Transmit mailbox 1 empty."]
-        #[inline(always)]
-        pub fn set_tme1(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 27usize)) | (((val as u32) & 0x01) << 27usize);
-        }
-        #[doc = "Transmit mailbox 2 empty."]
-        #[inline(always)]
-        pub const fn tme2(&self) -> bool {
-            let val = (self.0 >> 28usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Transmit mailbox 2 empty."]
-        #[inline(always)]
-        pub fn set_tme2(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 28usize)) | (((val as u32) & 0x01) << 28usize);
+        pub fn set_tme(&mut self, n: usize, val: bool) {
+            assert!(n < 3usize);
+            let offs = 26usize + n * 1usize;
+            self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
         }
         #[doc = "Lowest priority flag for mailbox 0."]
         #[inline(always)]
-        pub const fn low0(&self) -> bool {
-            let val = (self.0 >> 29usize) & 0x01;
+        pub const fn low(&self, n: usize) -> bool {
+            assert!(n < 3usize);
+            let offs = 29usize + n * 1usize;
+            let val = (self.0 >> offs) & 0x01;
             val != 0
         }
         #[doc = "Lowest priority flag for mailbox 0."]
         #[inline(always)]
-        pub fn set_low0(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 29usize)) | (((val as u32) & 0x01) << 29usize);
-        }
-        #[doc = "Lowest priority flag for mailbox 1."]
-        #[inline(always)]
-        pub const fn low1(&self) -> bool {
-            let val = (self.0 >> 30usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Lowest priority flag for mailbox 1."]
-        #[inline(always)]
-        pub fn set_low1(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 30usize)) | (((val as u32) & 0x01) << 30usize);
-        }
-        #[doc = "Lowest priority flag for mailbox 2."]
-        #[inline(always)]
-        pub const fn low2(&self) -> bool {
-            let val = (self.0 >> 31usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Lowest priority flag for mailbox 2."]
-        #[inline(always)]
-        pub fn set_low2(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 31usize)) | (((val as u32) & 0x01) << 31usize);
+        pub fn set_low(&mut self, n: usize, val: bool) {
+            assert!(n < 3usize);
+            let offs = 29usize + n * 1usize;
+            self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
         }
     }
     impl Default for Tstatr {
         #[inline(always)]
         fn default() -> Tstatr {
             Tstatr(0)
+        }
+    }
+    #[doc = "CAN time trigger control register."]
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Eq, PartialEq)]
+    pub struct Ttctlr(pub u32);
+    impl Ttctlr {
+        #[doc = "Internal counter count end value."]
+        #[inline(always)]
+        pub const fn timcmv(&self) -> u16 {
+            let val = (self.0 >> 0usize) & 0xffff;
+            val as u16
+        }
+        #[doc = "Internal counter count end value."]
+        #[inline(always)]
+        pub fn set_timcmv(&mut self, val: u16) {
+            self.0 = (self.0 & !(0xffff << 0usize)) | (((val as u32) & 0xffff) << 0usize);
+        }
+        #[doc = "Internal counter reset control."]
+        #[inline(always)]
+        pub const fn timrst(&self) -> bool {
+            let val = (self.0 >> 16usize) & 0x01;
+            val != 0
+        }
+        #[doc = "Internal counter reset control."]
+        #[inline(always)]
+        pub fn set_timrst(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 16usize)) | (((val as u32) & 0x01) << 16usize);
+        }
+        #[doc = "Time-triggered mode selection."]
+        #[inline(always)]
+        pub const fn mode(&self) -> bool {
+            let val = (self.0 >> 17usize) & 0x01;
+            val != 0
+        }
+        #[doc = "Time-triggered mode selection."]
+        #[inline(always)]
+        pub fn set_mode(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 17usize)) | (((val as u32) & 0x01) << 17usize);
+        }
+    }
+    impl Default for Ttctlr {
+        #[inline(always)]
+        fn default() -> Ttctlr {
+            Ttctlr(0)
         }
     }
     #[doc = "CAN mailbox data high register."]

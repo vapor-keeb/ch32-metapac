@@ -273,6 +273,9 @@ pub const TIM5: timer::Gptm32 = unsafe { timer::Gptm32::from_ptr(0x4000_0c00usiz
 pub const RTC: rtc::Rtc = unsafe { rtc::Rtc::from_ptr(0x4000_2800usize as _) };
 pub const USART2: usart::Usart = unsafe { usart::Usart::from_ptr(0x4000_4400usize as _) };
 pub const I2C1: i2c::I2c = unsafe { i2c::I2c::from_ptr(0x4000_5400usize as _) };
+pub const USBD: usbd::Usb = unsafe { usbd::Usb::from_ptr(0x4000_5c00usize as _) };
+pub const USBRAM: usbram::Usbram = unsafe { usbram::Usbram::from_ptr(0x4000_6000usize as _) };
+pub const CAN1: can::Can = unsafe { can::Can::from_ptr(0x4000_6400usize as _) };
 pub const AFIO: afio::Afio = unsafe { afio::Afio::from_ptr(0x4001_0000usize as _) };
 pub const EXTI: exti::Exti = unsafe { exti::Exti::from_ptr(0x4001_0400usize as _) };
 pub const GPIOA: gpio::Gpio = unsafe { gpio::Gpio::from_ptr(0x4001_0800usize as _) };
@@ -287,6 +290,7 @@ pub const DMA1: dma::Dma = unsafe { dma::Dma::from_ptr(0x4002_0000usize as _) };
 pub const RCC: rcc::Rcc = unsafe { rcc::Rcc::from_ptr(0x4002_1000usize as _) };
 pub const FLASH: flash::Flash = unsafe { flash::Flash::from_ptr(0x4002_2000usize as _) };
 pub const EXTEND: extend::Extend = unsafe { extend::Extend::from_ptr(0x4002_3800usize as _) };
+pub const USBFS: usb::Usb = unsafe { usb::Usb::from_ptr(0x5000_0000usize as _) };
 pub const PFIC: pfic::Pfic = unsafe { pfic::Pfic::from_ptr(0xe000_e000usize as _) };
 pub const SYSTICK: systick::Systick = unsafe { systick::Systick::from_ptr(0xe000_f000usize as _) };
 #[cfg(feature = "rt")]
@@ -299,6 +303,8 @@ pub fn GPIO(n: usize) -> gpio::Gpio {
 pub mod adc;
 #[path = "../../peripherals/afio_v3.rs"]
 pub mod afio;
+#[path = "../../peripherals/can_v3.rs"]
+pub mod can;
 #[path = "../../peripherals/dma_v1.rs"]
 pub mod dma;
 #[path = "../../peripherals/extend_v3.rs"]
@@ -325,6 +331,12 @@ pub mod systick;
 pub mod timer;
 #[path = "../../peripherals/usart_common.rs"]
 pub mod usart;
+#[path = "../../peripherals/usb_v2fs.rs"]
+pub mod usb;
+#[path = "../../peripherals/usbd_v2.rs"]
+pub mod usbd;
+#[path = "../../peripherals/usbram_16x1_512.rs"]
+pub mod usbram;
 pub const CORE_INDEX: usize = 0;
 pub const FLASH_BASE: usize = 0;
 pub const FLASH_SIZE: usize = 131072;

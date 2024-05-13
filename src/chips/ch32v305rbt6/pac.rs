@@ -462,6 +462,7 @@ pub const FLASH: flash::Flash = unsafe { flash::Flash::from_ptr(0x4002_2000usize
 pub const USBHS: usb::Usb = unsafe { usb::Usb::from_ptr(0x4002_3400usize as _) };
 pub const EXTEND: extend::Extend = unsafe { extend::Extend::from_ptr(0x4002_3800usize as _) };
 pub const RNG: rng::Rng = unsafe { rng::Rng::from_ptr(0x4002_3c00usize as _) };
+pub const OTG_FS: otg::Usb = unsafe { otg::Usb::from_ptr(0x5000_0000usize as _) };
 pub const PFIC: pfic::Pfic = unsafe { pfic::Pfic::from_ptr(0xe000_e000usize as _) };
 pub const SYSTICK: systick::Systick = unsafe { systick::Systick::from_ptr(0xe000_f000usize as _) };
 #[cfg(feature = "rt")]
@@ -490,6 +491,8 @@ pub mod flash;
 pub mod gpio;
 #[path = "../../peripherals/i2c_v3.rs"]
 pub mod i2c;
+#[path = "../../peripherals/otg_v2.rs"]
+pub mod otg;
 #[path = "../../peripherals/pfic_rv4.rs"]
 pub mod pfic;
 #[path = "../../peripherals/rcc_v3_d8c.rs"]

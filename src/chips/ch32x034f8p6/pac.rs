@@ -216,6 +216,7 @@ pub const USART1: usart::Usart = unsafe { usart::Usart::from_ptr(0x4001_3800usiz
 pub const DMA1: dma::Dma = unsafe { dma::Dma::from_ptr(0x4002_0000usize as _) };
 pub const RCC: rcc::Rcc = unsafe { rcc::Rcc::from_ptr(0x4002_1000usize as _) };
 pub const FLASH: flash::Flash = unsafe { flash::Flash::from_ptr(0x4002_2000usize as _) };
+pub const USBFS: usb::Usb = unsafe { usb::Usb::from_ptr(0x4002_3400usize as _) };
 pub const OPA: opa::Opa = unsafe { opa::Opa::from_ptr(0x4002_6000usize as _) };
 pub const PIOC: pioc::Pioc = unsafe { pioc::Pioc::from_ptr(0x4002_6c00usize as _) };
 pub const PFIC: pfic::Pfic = unsafe { pfic::Pfic::from_ptr(0xe000_e000usize as _) };
@@ -254,6 +255,8 @@ pub mod systick;
 pub mod timer;
 #[path = "../../peripherals/usart_common.rs"]
 pub mod usart;
+#[path = "../../peripherals/usb_x0fs.rs"]
+pub mod usb;
 pub const CORE_INDEX: usize = 0;
 pub const FLASH_BASE: usize = 0;
 pub const FLASH_SIZE: usize = 63488;

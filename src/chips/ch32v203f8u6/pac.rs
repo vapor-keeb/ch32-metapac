@@ -242,6 +242,8 @@ pub const TIM4: timer::Gptm = unsafe { timer::Gptm::from_ptr(0x4000_0800usize as
 pub const RTC: rtc::Rtc = unsafe { rtc::Rtc::from_ptr(0x4000_2800usize as _) };
 pub const USART2: usart::Usart = unsafe { usart::Usart::from_ptr(0x4000_4400usize as _) };
 pub const I2C1: i2c::I2c = unsafe { i2c::I2c::from_ptr(0x4000_5400usize as _) };
+pub const USBD: usbd::Usb = unsafe { usbd::Usb::from_ptr(0x4000_5c00usize as _) };
+pub const USBRAM: usbram::Usbram = unsafe { usbram::Usbram::from_ptr(0x4000_6000usize as _) };
 pub const AFIO: afio::Afio = unsafe { afio::Afio::from_ptr(0x4001_0000usize as _) };
 pub const EXTI: exti::Exti = unsafe { exti::Exti::from_ptr(0x4001_0400usize as _) };
 pub const GPIOA: gpio::Gpio = unsafe { gpio::Gpio::from_ptr(0x4001_0800usize as _) };
@@ -295,6 +297,10 @@ pub mod systick;
 pub mod timer;
 #[path = "../../peripherals/usart_common.rs"]
 pub mod usart;
+#[path = "../../peripherals/usbd_v2.rs"]
+pub mod usbd;
+#[path = "../../peripherals/usbram_16x1_512.rs"]
+pub mod usbram;
 pub const CORE_INDEX: usize = 0;
 pub const FLASH_BASE: usize = 0;
 pub const FLASH_SIZE: usize = 65536;
