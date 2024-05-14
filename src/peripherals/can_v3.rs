@@ -34,7 +34,7 @@ impl Can {
     pub const fn tstatr(self) -> crate::common::Reg<regs::Tstatr, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x08usize) as _) }
     }
-    #[doc = "CAN receive FIFO 0 register."]
+    #[doc = "CAN receive FIFO register."]
     #[inline(always)]
     pub const fn rfifo(self, n: usize) -> crate::common::Reg<regs::Rfifo, crate::common::RW> {
         assert!(n < 2usize);
@@ -759,51 +759,51 @@ pub mod regs {
             Intenr(0)
         }
     }
-    #[doc = "CAN receive FIFO 0/1 register."]
+    #[doc = "CAN receive FIFO register."]
     #[repr(transparent)]
     #[derive(Copy, Clone, Eq, PartialEq)]
     pub struct Rfifo(pub u32);
     impl Rfifo {
-        #[doc = "FIFO 0 message pending."]
+        #[doc = "FIFO message pending."]
         #[inline(always)]
-        pub const fn fmp0(&self) -> u8 {
+        pub const fn fmp(&self) -> u8 {
             let val = (self.0 >> 0usize) & 0x03;
             val as u8
         }
-        #[doc = "FIFO 0 message pending."]
+        #[doc = "FIFO message pending."]
         #[inline(always)]
-        pub fn set_fmp0(&mut self, val: u8) {
+        pub fn set_fmp(&mut self, val: u8) {
             self.0 = (self.0 & !(0x03 << 0usize)) | (((val as u32) & 0x03) << 0usize);
         }
-        #[doc = "FIFO 0 full."]
+        #[doc = "FIFO full."]
         #[inline(always)]
         pub const fn full(&self) -> bool {
             let val = (self.0 >> 3usize) & 0x01;
             val != 0
         }
-        #[doc = "FIFO 0 full."]
+        #[doc = "FIFO full."]
         #[inline(always)]
         pub fn set_full(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 3usize)) | (((val as u32) & 0x01) << 3usize);
         }
-        #[doc = "FIFO 0 overrun."]
+        #[doc = "FIFO overrun."]
         #[inline(always)]
         pub const fn fovr(&self) -> bool {
             let val = (self.0 >> 4usize) & 0x01;
             val != 0
         }
-        #[doc = "FIFO 0 overrun."]
+        #[doc = "FIFO overrun."]
         #[inline(always)]
         pub fn set_fovr(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u32) & 0x01) << 4usize);
         }
-        #[doc = "Release FIFO 0 output mailbox."]
+        #[doc = "Release FIFO output mailbox."]
         #[inline(always)]
         pub const fn rfom(&self) -> bool {
             let val = (self.0 >> 5usize) & 0x01;
             val != 0
         }
-        #[doc = "Release FIFO 0 output mailbox."]
+        #[doc = "Release FIFO output mailbox."]
         #[inline(always)]
         pub fn set_rfom(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u32) & 0x01) << 5usize);

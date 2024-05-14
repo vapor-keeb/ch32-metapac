@@ -40,7 +40,7 @@ pub(crate) static REGISTERS: IR = IR {
             },
             BlockItem {
                 name: "rfifo",
-                description: Some("CAN receive FIFO 0 register."),
+                description: Some("CAN receive FIFO register."),
                 array: Some(Array::Regular(RegularArray { len: 2, stride: 32 })),
                 byte_offset: 0xc,
                 inner: BlockItemInner::Register(Register {
@@ -682,12 +682,12 @@ pub(crate) static REGISTERS: IR = IR {
         FieldSet {
             name: "Rfifo",
             extends: None,
-            description: Some("CAN receive FIFO 0/1 register."),
+            description: Some("CAN receive FIFO register."),
             bit_size: 32,
             fields: &[
                 Field {
-                    name: "fmp0",
-                    description: Some("FIFO 0 message pending."),
+                    name: "fmp",
+                    description: Some("FIFO message pending."),
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 0 }),
                     bit_size: 2,
                     array: None,
@@ -695,7 +695,7 @@ pub(crate) static REGISTERS: IR = IR {
                 },
                 Field {
                     name: "full",
-                    description: Some("FIFO 0 full."),
+                    description: Some("FIFO full."),
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 3 }),
                     bit_size: 1,
                     array: None,
@@ -703,7 +703,7 @@ pub(crate) static REGISTERS: IR = IR {
                 },
                 Field {
                     name: "fovr",
-                    description: Some("FIFO 0 overrun."),
+                    description: Some("FIFO overrun."),
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 4 }),
                     bit_size: 1,
                     array: None,
@@ -711,7 +711,7 @@ pub(crate) static REGISTERS: IR = IR {
                 },
                 Field {
                     name: "rfom",
-                    description: Some("Release FIFO 0 output mailbox."),
+                    description: Some("Release FIFO output mailbox."),
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 5 }),
                     bit_size: 1,
                     array: None,
