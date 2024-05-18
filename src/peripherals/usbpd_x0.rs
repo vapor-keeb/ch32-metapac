@@ -5,12 +5,12 @@
 
 #[doc = "USBPD configuration."]
 #[derive(Copy, Clone, Eq, PartialEq)]
-pub struct UsbPd {
+pub struct Usbpd {
     ptr: *mut u8,
 }
-unsafe impl Send for UsbPd {}
-unsafe impl Sync for UsbPd {}
-impl UsbPd {
+unsafe impl Send for Usbpd {}
+unsafe impl Sync for Usbpd {}
+impl Usbpd {
     #[inline(always)]
     pub const unsafe fn from_ptr(ptr: *mut ()) -> Self {
         Self { ptr: ptr as _ }
@@ -46,7 +46,7 @@ impl UsbPd {
     }
     #[doc = "DMA cache data register."]
     #[inline(always)]
-    pub const fn data_buf(self) -> crate::common::Reg<regs::DataBuf, crate::common::RW> {
+    pub const fn data_buf(self) -> crate::common::Reg<u8, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x08usize) as _) }
     }
     #[doc = "PD interrupt flag register."]
@@ -71,7 +71,7 @@ impl UsbPd {
     }
     #[doc = "PD buffer start address register."]
     #[inline(always)]
-    pub const fn dma(self) -> crate::common::Reg<regs::Dma, crate::common::RW> {
+    pub const fn dma(self) -> crate::common::Reg<u16, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x10usize) as _) }
     }
 }
@@ -150,6 +150,17 @@ pub mod regs {
     #[derive(Copy, Clone, Eq, PartialEq)]
     pub struct Config(pub u16);
     impl Config {
+        #[doc = "PD Filter Enable."]
+        #[inline(always)]
+        pub const fn pd_filt_en(&self) -> bool {
+            let val = (self.0 >> 0usize) & 0x01;
+            val != 0
+        }
+        #[doc = "PD Filter Enable."]
+        #[inline(always)]
+        pub fn set_pd_filt_en(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 0usize)) | (((val as u16) & 0x01) << 0usize);
+        }
         #[doc = "PD ITClear."]
         #[inline(always)]
         pub const fn pd_all_clr(&self) -> bool {
@@ -345,52 +356,6 @@ pub mod regs {
             Control(0)
         }
     }
-    #[doc = "DMA cache data register."]
-    #[repr(transparent)]
-    #[derive(Copy, Clone, Eq, PartialEq)]
-    pub struct DataBuf(pub u8);
-    impl DataBuf {
-        #[doc = "DATA_BUF value."]
-        #[inline(always)]
-        pub const fn data_buf(&self) -> u8 {
-            let val = (self.0 >> 0usize) & 0xff;
-            val as u8
-        }
-        #[doc = "DATA_BUF value."]
-        #[inline(always)]
-        pub fn set_data_buf(&mut self, val: u8) {
-            self.0 = (self.0 & !(0xff << 0usize)) | (((val as u8) & 0xff) << 0usize);
-        }
-    }
-    impl Default for DataBuf {
-        #[inline(always)]
-        fn default() -> DataBuf {
-            DataBuf(0)
-        }
-    }
-    #[doc = "PD buffer start address register."]
-    #[repr(transparent)]
-    #[derive(Copy, Clone, Eq, PartialEq)]
-    pub struct Dma(pub u16);
-    impl Dma {
-        #[doc = "USBPD_DMA_ADDR value."]
-        #[inline(always)]
-        pub const fn usbpd_dma_addr(&self) -> u16 {
-            let val = (self.0 >> 0usize) & 0xffff;
-            val as u16
-        }
-        #[doc = "USBPD_DMA_ADDR value."]
-        #[inline(always)]
-        pub fn set_usbpd_dma_addr(&mut self, val: u16) {
-            self.0 = (self.0 & !(0xffff << 0usize)) | (((val as u16) & 0xffff) << 0usize);
-        }
-    }
-    impl Default for Dma {
-        #[inline(always)]
-        fn default() -> Dma {
-            Dma(0)
-        }
-    }
     #[doc = "CC1 port control register."]
     #[repr(transparent)]
     #[derive(Copy, Clone, Eq, PartialEq)]
@@ -454,14 +419,14 @@ pub mod regs {
     impl Status {
         #[doc = "BMC_AUX value."]
         #[inline(always)]
-        pub const fn bmc_aux(&self) -> u8 {
+        pub const fn bmc_aux(&self) -> super::vals::BmcAux {
             let val = (self.0 >> 0usize) & 0x03;
-            val as u8
+            super::vals::BmcAux::from_bits(val as u8)
         }
         #[doc = "BMC_AUX value."]
         #[inline(always)]
-        pub fn set_bmc_aux(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 0usize)) | (((val as u8) & 0x03) << 0usize);
+        pub fn set_bmc_aux(&mut self, val: super::vals::BmcAux) {
+            self.0 = (self.0 & !(0x03 << 0usize)) | (((val.to_bits() as u8) & 0x03) << 0usize);
         }
         #[doc = "BUF_ERR value."]
         #[inline(always)]
@@ -594,6 +559,41 @@ pub mod regs {
     }
 }
 pub mod vals {
+    #[doc = "PD status after receive."]
+    #[repr(u8)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub enum BmcAux {
+        #[doc = "BMC_AUX0 value."]
+        NONE = 0x0,
+        #[doc = "SOP, aka SOP0"]
+        SOP0 = 0x01,
+        #[doc = "SOP', aka SOP1 or Hard Reset"]
+        SOP1 = 0x02,
+        #[doc = "SOP'', aka SOP2 or Cable Resed"]
+        SOP2 = 0x03,
+    }
+    impl BmcAux {
+        #[inline(always)]
+        pub const fn from_bits(val: u8) -> BmcAux {
+            unsafe { core::mem::transmute(val & 0x03) }
+        }
+        #[inline(always)]
+        pub const fn to_bits(self) -> u8 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl From<u8> for BmcAux {
+        #[inline(always)]
+        fn from(val: u8) -> BmcAux {
+            BmcAux::from_bits(val)
+        }
+    }
+    impl From<BmcAux> for u8 {
+        #[inline(always)]
+        fn from(val: BmcAux) -> u8 {
+            BmcAux::to_bits(val)
+        }
+    }
     #[repr(u8)]
     #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
     pub enum CcSel {

@@ -1,4 +1,4 @@
-include!("../metadata_0037.rs");
+include!("../metadata_0043.rs");
 use crate::metadata::PeripheralRccKernelClock::{Clock, Mux};
 pub static METADATA: Metadata = Metadata {
     name: "CH32V307VCT6",

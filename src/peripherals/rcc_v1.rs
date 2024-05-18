@@ -150,13 +150,13 @@ pub mod regs {
     impl Ahbrstr {
         #[doc = "USBHD reset."]
         #[inline(always)]
-        pub const fn usbhsrst(&self) -> bool {
+        pub const fn usbhdrst(&self) -> bool {
             let val = (self.0 >> 12usize) & 0x01;
             val != 0
         }
         #[doc = "USBHD reset."]
         #[inline(always)]
-        pub fn set_usbhsrst(&mut self, val: bool) {
+        pub fn set_usbhdrst(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 12usize)) | (((val as u32) & 0x01) << 12usize);
         }
     }
@@ -904,14 +904,14 @@ pub mod regs {
         }
         #[doc = "USB prescaler."]
         #[inline(always)]
-        pub const fn usbpre(&self) -> bool {
+        pub const fn usbpre(&self) -> super::vals::Usbpre {
             let val = (self.0 >> 22usize) & 0x01;
-            val != 0
+            super::vals::Usbpre::from_bits(val as u8)
         }
         #[doc = "USB prescaler."]
         #[inline(always)]
-        pub fn set_usbpre(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 22usize)) | (((val as u32) & 0x01) << 22usize);
+        pub fn set_usbpre(&mut self, val: super::vals::Usbpre) {
+            self.0 = (self.0 & !(0x01 << 22usize)) | (((val.to_bits() as u32) & 0x01) << 22usize);
         }
         #[doc = "Microcontroller clock output."]
         #[inline(always)]
@@ -1587,8 +1587,7 @@ pub mod vals {
         HSE = 0x01,
         #[doc = "PLL selected as system clock."]
         PLL = 0x02,
-        #[doc = "Reserved."]
-        RESERVED = 0x03,
+        _RESERVED_3 = 0x03,
     }
     impl Sw {
         #[inline(always)]
@@ -1610,6 +1609,37 @@ pub mod vals {
         #[inline(always)]
         fn from(val: Sw) -> u8 {
             Sw::to_bits(val)
+        }
+    }
+    #[doc = "USB prescaler."]
+    #[repr(u8)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub enum Usbpre {
+        #[doc = "PLL clock divided by 1.5(PLLCLK=72MHz)."]
+        DIV1_5 = 0x0,
+        #[doc = "PLL clock divided by 1(PLLCLK=48MHz)."]
+        DIV1 = 0x01,
+    }
+    impl Usbpre {
+        #[inline(always)]
+        pub const fn from_bits(val: u8) -> Usbpre {
+            unsafe { core::mem::transmute(val & 0x01) }
+        }
+        #[inline(always)]
+        pub const fn to_bits(self) -> u8 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl From<u8> for Usbpre {
+        #[inline(always)]
+        fn from(val: u8) -> Usbpre {
+            Usbpre::from_bits(val)
+        }
+    }
+    impl From<Usbpre> for u8 {
+        #[inline(always)]
+        fn from(val: Usbpre) -> u8 {
+            Usbpre::to_bits(val)
         }
     }
 }

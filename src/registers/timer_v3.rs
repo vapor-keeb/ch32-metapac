@@ -2420,11 +2420,6 @@ pub(crate) static REGISTERS: IR = IR {
                     ),
                     value: 2,
                 },
-                EnumVariant {
-                    name: "RESERVED",
-                    description: None,
-                    value: 3,
-                },
             ],
         },
         Enum {

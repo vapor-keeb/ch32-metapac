@@ -183,7 +183,7 @@ pub(crate) static REGISTERS: IR = IR {
             description: Some("AHB reset register(RCC_APHBRSTR)."),
             bit_size: 32,
             fields: &[Field {
-                name: "usbhsrst",
+                name: "usbhdrst",
                 description: Some("USBHD reset."),
                 bit_offset: BitOffset::Regular(RegularBitOffset { offset: 12 }),
                 bit_size: 1,
@@ -731,7 +731,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 22 }),
                     bit_size: 1,
                     array: None,
-                    enumm: None,
+                    enumm: Some("Usbpre"),
                 },
                 Field {
                     name: "mco",
@@ -1292,10 +1292,22 @@ pub(crate) static REGISTERS: IR = IR {
                     description: Some("PLL selected as system clock."),
                     value: 2,
                 },
+            ],
+        },
+        Enum {
+            name: "Usbpre",
+            description: Some("USB prescaler."),
+            bit_size: 1,
+            variants: &[
                 EnumVariant {
-                    name: "RESERVED",
-                    description: Some("Reserved."),
-                    value: 3,
+                    name: "DIV1_5",
+                    description: Some("PLL clock divided by 1.5(PLLCLK=72MHz)."),
+                    value: 0,
+                },
+                EnumVariant {
+                    name: "DIV1",
+                    description: Some("PLL clock divided by 1(PLLCLK=48MHz)."),
+                    value: 1,
                 },
             ],
         },

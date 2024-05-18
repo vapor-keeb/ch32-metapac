@@ -561,15 +561,15 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         ],
         dma_channels: &[
             PeripheralDmaChannel {
-                signal: "RX",
-                channel: Some("DMA1_CH6"),
+                signal: "TX",
+                channel: Some("DMA1_CH7"),
                 dmamux: None,
                 dma: None,
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "TX",
-                channel: Some("DMA1_CH7"),
+                signal: "RX",
+                channel: Some("DMA1_CH6"),
                 dmamux: None,
                 dma: None,
                 request: None,
@@ -908,7 +908,7 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         address: 0x40013000,
         registers: Some(PeripheralRegisters {
             kind: "spi",
-            version: "x0",
+            version: "v0",
             block: "SPI",
             ir: &spi::REGISTERS,
         }),
@@ -1008,15 +1008,15 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         ],
         dma_channels: &[
             PeripheralDmaChannel {
-                signal: "RX",
-                channel: Some("DMA1_CH2"),
+                signal: "TX",
+                channel: Some("DMA1_CH3"),
                 dmamux: None,
                 dma: None,
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "TX",
-                channel: Some("DMA1_CH3"),
+                signal: "RX",
+                channel: Some("DMA1_CH2"),
                 dmamux: None,
                 dma: None,
                 request: None,
@@ -1344,14 +1344,7 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         ],
         dma_channels: &[
             PeripheralDmaChannel {
-                signal: "CH1",
-                channel: Some("DMA1_CH2"),
-                dmamux: None,
-                dma: None,
-                request: None,
-            },
-            PeripheralDmaChannel {
-                signal: "TRIG",
+                signal: "CH4",
                 channel: Some("DMA1_CH4"),
                 dmamux: None,
                 dma: None,
@@ -1365,14 +1358,28 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "COM",
+                signal: "TRIG",
                 channel: Some("DMA1_CH4"),
                 dmamux: None,
                 dma: None,
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "CH4",
+                signal: "CH3",
+                channel: Some("DMA1_CH6"),
+                dmamux: None,
+                dma: None,
+                request: None,
+            },
+            PeripheralDmaChannel {
+                signal: "CH1",
+                channel: Some("DMA1_CH2"),
+                dmamux: None,
+                dma: None,
+                request: None,
+            },
+            PeripheralDmaChannel {
+                signal: "COM",
                 channel: Some("DMA1_CH4"),
                 dmamux: None,
                 dma: None,
@@ -1381,13 +1388,6 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
             PeripheralDmaChannel {
                 signal: "UP",
                 channel: Some("DMA1_CH5"),
-                dmamux: None,
-                dma: None,
-                request: None,
-            },
-            PeripheralDmaChannel {
-                signal: "CH3",
-                channel: Some("DMA1_CH6"),
                 dmamux: None,
                 dma: None,
                 request: None,
@@ -1761,8 +1761,8 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         ],
         dma_channels: &[
             PeripheralDmaChannel {
-                signal: "TRIG",
-                channel: Some("DMA1_CH8"),
+                signal: "CH1",
+                channel: Some("DMA1_CH5"),
                 dmamux: None,
                 dma: None,
                 request: None,
@@ -1775,15 +1775,15 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "CH1",
-                channel: Some("DMA1_CH5"),
+                signal: "UP",
+                channel: Some("DMA1_CH2"),
                 dmamux: None,
                 dma: None,
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "UP",
-                channel: Some("DMA1_CH2"),
+                signal: "COM",
+                channel: Some("DMA1_CH8"),
                 dmamux: None,
                 dma: None,
                 request: None,
@@ -1796,15 +1796,15 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "CH2",
-                channel: Some("DMA1_CH7"),
+                signal: "TRIG",
+                channel: Some("DMA1_CH8"),
                 dmamux: None,
                 dma: None,
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "COM",
-                channel: Some("DMA1_CH8"),
+                signal: "CH2",
+                channel: Some("DMA1_CH7"),
                 dmamux: None,
                 dma: None,
                 request: None,
@@ -2021,44 +2021,21 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         ],
     },
     Peripheral {
-        name: "USBPD",
-        address: 0x40027000,
+        name: "AWU",
+        address: 0x40026400,
         registers: Some(PeripheralRegisters {
-            kind: "usbpd",
+            kind: "awu",
             version: "x0",
-            block: "USB_PD",
-            ir: &usbpd::REGISTERS,
+            block: "AWU",
+            ir: &awu::REGISTERS,
         }),
-        rcc: Some(PeripheralRcc {
-            bus_clock: "HCLK",
-            kernel_clock: Clock("HCLK"),
-            enable: Some(PeripheralRccRegister {
-                register: "AHBPCENR",
-                field: "USBPD",
-            }),
-            reset: Some(PeripheralRccRegister {
-                register: "AHBRSTR",
-                field: "USBPDRST",
-            }),
-            stop_mode: StopMode::Stop1,
-        }),
+        rcc: None,
         remap: None,
-        pins: &[
-            PeripheralPin {
-                pin: "PC14",
-                signal: "CC1",
-                remap: None,
-            },
-            PeripheralPin {
-                pin: "PC15",
-                signal: "CC2",
-                remap: None,
-            },
-        ],
+        pins: &[],
         dma_channels: &[],
         interrupts: &[PeripheralInterrupt {
             signal: "GLOBAL",
-            interrupt: "USBPD",
+            interrupt: "AWU",
         }],
     },
 ];
@@ -2278,6 +2255,8 @@ pub(crate) static DMA_CHANNELS: &[DmaChannel] = &[
 pub mod adc;
 #[path = "../registers/afio_x0.rs"]
 pub mod afio;
+#[path = "../registers/awu_x0.rs"]
+pub mod awu;
 #[path = "../registers/dma_v1.rs"]
 pub mod dma;
 #[path = "../registers/exti_common.rs"]
@@ -2294,7 +2273,7 @@ pub mod pfic;
 pub mod pioc;
 #[path = "../registers/rcc_x0.rs"]
 pub mod rcc;
-#[path = "../registers/spi_x0.rs"]
+#[path = "../registers/spi_v0.rs"]
 pub mod spi;
 #[path = "../registers/systick_rv4.rs"]
 pub mod systick;
@@ -2304,5 +2283,3 @@ pub mod timer;
 pub mod usart;
 #[path = "../registers/usb_x0fs.rs"]
 pub mod usb;
-#[path = "../registers/usbpd_x0.rs"]
-pub mod usbpd;

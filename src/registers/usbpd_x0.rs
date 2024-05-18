@@ -1,7 +1,7 @@
 use crate::metadata::ir::*;
 pub(crate) static REGISTERS: IR = IR {
     blocks: &[Block {
-        name: "UsbPd",
+        name: "Usbpd",
         extends: None,
         description: Some("USBPD configuration."),
         items: &[
@@ -68,7 +68,7 @@ pub(crate) static REGISTERS: IR = IR {
                 inner: BlockItemInner::Register(Register {
                     access: Access::ReadWrite,
                     bit_size: 8,
-                    fieldset: Some("DataBuf"),
+                    fieldset: None,
                 }),
             },
             BlockItem {
@@ -123,7 +123,7 @@ pub(crate) static REGISTERS: IR = IR {
                 inner: BlockItemInner::Register(Register {
                     access: Access::ReadWrite,
                     bit_size: 16,
-                    fieldset: Some("Dma"),
+                    fieldset: None,
                 }),
             },
         ],
@@ -177,6 +177,14 @@ pub(crate) static REGISTERS: IR = IR {
             description: Some("PD interrupt enable register."),
             bit_size: 16,
             fields: &[
+                Field {
+                    name: "pd_filt_en",
+                    description: Some("PD Filter Enable."),
+                    bit_offset: BitOffset::Regular(RegularBitOffset { offset: 0 }),
+                    bit_size: 1,
+                    array: None,
+                    enumm: None,
+                },
                 Field {
                     name: "pd_all_clr",
                     description: Some("PD ITClear."),
@@ -316,34 +324,6 @@ pub(crate) static REGISTERS: IR = IR {
             ],
         },
         FieldSet {
-            name: "DataBuf",
-            extends: None,
-            description: Some("DMA cache data register."),
-            bit_size: 8,
-            fields: &[Field {
-                name: "data_buf",
-                description: Some("DATA_BUF value."),
-                bit_offset: BitOffset::Regular(RegularBitOffset { offset: 0 }),
-                bit_size: 8,
-                array: None,
-                enumm: None,
-            }],
-        },
-        FieldSet {
-            name: "Dma",
-            extends: None,
-            description: Some("PD buffer start address register."),
-            bit_size: 16,
-            fields: &[Field {
-                name: "usbpd_dma_addr",
-                description: Some("USBPD_DMA_ADDR value."),
-                bit_offset: BitOffset::Regular(RegularBitOffset { offset: 0 }),
-                bit_size: 16,
-                array: None,
-                enumm: None,
-            }],
-        },
-        FieldSet {
             name: "PortCc",
             extends: None,
             description: Some("CC1 port control register."),
@@ -395,7 +375,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 0 }),
                     bit_size: 2,
                     array: None,
-                    enumm: None,
+                    enumm: Some("BmcAux"),
                 },
                 Field {
                     name: "buf_err",
@@ -489,6 +469,33 @@ pub(crate) static REGISTERS: IR = IR {
         },
     ],
     enums: &[
+        Enum {
+            name: "BmcAux",
+            description: Some("PD status after receive."),
+            bit_size: 2,
+            variants: &[
+                EnumVariant {
+                    name: "NONE",
+                    description: Some("BMC_AUX0 value."),
+                    value: 0,
+                },
+                EnumVariant {
+                    name: "SOP0",
+                    description: Some("SOP, aka SOP0"),
+                    value: 1,
+                },
+                EnumVariant {
+                    name: "SOP1",
+                    description: Some("SOP', aka SOP1 or Hard Reset"),
+                    value: 2,
+                },
+                EnumVariant {
+                    name: "SOP2",
+                    description: Some("SOP'', aka SOP2 or Cable Resed"),
+                    value: 3,
+                },
+            ],
+        },
         Enum {
             name: "CcSel",
             description: None,

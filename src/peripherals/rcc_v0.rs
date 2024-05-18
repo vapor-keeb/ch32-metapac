@@ -1113,8 +1113,7 @@ pub mod vals {
         HSE = 0x01,
         #[doc = "PLL selected as system clock."]
         PLL = 0x02,
-        #[doc = "Reserved."]
-        _RESERVED = 0x03,
+        _RESERVED_3 = 0x03,
     }
     impl Sw {
         #[inline(always)]

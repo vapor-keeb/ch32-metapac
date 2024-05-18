@@ -218,6 +218,7 @@ pub const RCC: rcc::Rcc = unsafe { rcc::Rcc::from_ptr(0x4002_1000usize as _) };
 pub const FLASH: flash::Flash = unsafe { flash::Flash::from_ptr(0x4002_2000usize as _) };
 pub const USBFS: usb::Usb = unsafe { usb::Usb::from_ptr(0x4002_3400usize as _) };
 pub const OPA: opa::Opa = unsafe { opa::Opa::from_ptr(0x4002_6000usize as _) };
+pub const AWU: awu::Awu = unsafe { awu::Awu::from_ptr(0x4002_6400usize as _) };
 pub const PIOC: pioc::Pioc = unsafe { pioc::Pioc::from_ptr(0x4002_6c00usize as _) };
 pub const PFIC: pfic::Pfic = unsafe { pfic::Pfic::from_ptr(0xe000_e000usize as _) };
 pub const SYSTICK: systick::Systick = unsafe { systick::Systick::from_ptr(0xe000_f000usize as _) };
@@ -231,6 +232,8 @@ pub fn GPIO(n: usize) -> gpio::Gpio {
 pub mod adc;
 #[path = "../../peripherals/afio_x0.rs"]
 pub mod afio;
+#[path = "../../peripherals/awu_x0.rs"]
+pub mod awu;
 #[path = "../../peripherals/dma_v1.rs"]
 pub mod dma;
 #[path = "../../peripherals/exti_common.rs"]
@@ -247,7 +250,7 @@ pub mod pfic;
 pub mod pioc;
 #[path = "../../peripherals/rcc_x0.rs"]
 pub mod rcc;
-#[path = "../../peripherals/spi_x0.rs"]
+#[path = "../../peripherals/spi_v0.rs"]
 pub mod spi;
 #[path = "../../peripherals/systick_rv4.rs"]
 pub mod systick;

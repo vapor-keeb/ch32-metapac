@@ -1721,7 +1721,7 @@ pub mod vals {
         DIV_2 = 0x01,
         #[doc = "Tdts=4*Tck_int"]
         DIV_4 = 0x02,
-        RESERVED = 0x03,
+        _RESERVED_3 = 0x03,
     }
     impl Ckd {
         #[inline(always)]

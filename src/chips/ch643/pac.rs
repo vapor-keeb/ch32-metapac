@@ -243,7 +243,7 @@ pub mod pfic;
 pub mod pioc;
 #[path = "../../peripherals/rcc_x0.rs"]
 pub mod rcc;
-#[path = "../../peripherals/spi_x0.rs"]
+#[path = "../../peripherals/spi_v0.rs"]
 pub mod spi;
 #[path = "../../peripherals/systick_rv4.rs"]
 pub mod systick;

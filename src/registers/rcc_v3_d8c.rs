@@ -2085,11 +2085,6 @@ pub(crate) static REGISTERS: IR = IR {
                     description: Some("PLL selected as system clock."),
                     value: 2,
                 },
-                EnumVariant {
-                    name: "RESERVED",
-                    description: Some("Reserved."),
-                    value: 3,
-                },
             ],
         },
         Enum {
