@@ -3,7 +3,7 @@
 #![allow(clippy::unnecessary_cast)]
 #![allow(clippy::erasing_op)]
 
-#[doc = "General purpose I/O."]
+#[doc = "General purpose I/O. 16 lines per port."]
 #[derive(Copy, Clone, Eq, PartialEq)]
 pub struct Gpio {
     ptr: *mut u8,

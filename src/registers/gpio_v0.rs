@@ -3,7 +3,7 @@ pub(crate) static REGISTERS: IR = IR {
     blocks: &[Block {
         name: "Gpio",
         extends: None,
-        description: Some("General purpose I/O."),
+        description: Some("General purpose I/O. 8 lines per port."),
         items: &[
             BlockItem {
                 name: "cfglr",

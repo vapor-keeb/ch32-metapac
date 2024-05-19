@@ -36,14 +36,14 @@ pub enum Interrupt {
     USART1 = 32,
     #[doc = "33 - EXTI15_8"]
     EXTI15_8 = 33,
-    #[doc = "34 - TIM1BRK"]
-    TIM1BRK = 34,
-    #[doc = "35 - TIM1UP"]
-    TIM1UP = 35,
-    #[doc = "36 - TIM1TRG"]
-    TIM1TRG = 36,
-    #[doc = "37 - TIM1CC"]
-    TIM1CC = 37,
+    #[doc = "34 - TIM1_BRK"]
+    TIM1_BRK = 34,
+    #[doc = "35 - TIM1_UP"]
+    TIM1_UP = 35,
+    #[doc = "36 - TIM1_TRG_COM"]
+    TIM1_TRG_COM = 36,
+    #[doc = "37 - TIM1_CC"]
+    TIM1_CC = 37,
     #[doc = "38 - TIM2"]
     TIM2 = 38,
     #[doc = "39 - USBPD"]
@@ -78,10 +78,10 @@ mod _vectors {
         fn I2C1_ER();
         fn USART1();
         fn EXTI15_8();
-        fn TIM1BRK();
-        fn TIM1UP();
-        fn TIM1TRG();
-        fn TIM1CC();
+        fn TIM1_BRK();
+        fn TIM1_UP();
+        fn TIM1_TRG_COM();
+        fn TIM1_CC();
         fn TIM2();
         fn USBPD();
         fn USBPD_WKUP();
@@ -125,10 +125,12 @@ mod _vectors {
         Vector { _handler: I2C1_ER },
         Vector { _handler: USART1 },
         Vector { _handler: EXTI15_8 },
-        Vector { _handler: TIM1BRK },
-        Vector { _handler: TIM1UP },
-        Vector { _handler: TIM1TRG },
-        Vector { _handler: TIM1CC },
+        Vector { _handler: TIM1_BRK },
+        Vector { _handler: TIM1_UP },
+        Vector {
+            _handler: TIM1_TRG_COM,
+        },
+        Vector { _handler: TIM1_CC },
         Vector { _handler: TIM2 },
         Vector { _handler: USBPD },
         Vector {
@@ -141,16 +143,13 @@ pub const I2C1: i2c::I2c = unsafe { i2c::I2c::from_ptr(0x4000_5400usize as _) };
 pub const AFIO: afio::Afio = unsafe { afio::Afio::from_ptr(0x4001_0000usize as _) };
 pub const EXTI: exti::Exti = unsafe { exti::Exti::from_ptr(0x4001_0400usize as _) };
 pub const GPIOA: gpio::Gpio = unsafe { gpio::Gpio::from_ptr(0x4001_0800usize as _) };
-pub const GPIOC: gpio::Gpio = unsafe { gpio::Gpio::from_ptr(0x4001_1000usize as _) };
-pub const GPIOD: gpio::Gpio = unsafe { gpio::Gpio::from_ptr(0x4001_1400usize as _) };
+pub const GPIOB: gpio::Gpio = unsafe { gpio::Gpio::from_ptr(0x4001_0c00usize as _) };
 pub const ADC1: adc::Adc = unsafe { adc::Adc::from_ptr(0x4001_2400usize as _) };
 pub const TIM1: timer::Adtm = unsafe { timer::Adtm::from_ptr(0x4001_2c00usize as _) };
-pub const SPI1: spi::Spi = unsafe { spi::Spi::from_ptr(0x4001_3000usize as _) };
 pub const USART1: usart::Usart = unsafe { usart::Usart::from_ptr(0x4001_3800usize as _) };
 pub const DMA1: dma::Dma = unsafe { dma::Dma::from_ptr(0x4002_0000usize as _) };
 pub const RCC: rcc::Rcc = unsafe { rcc::Rcc::from_ptr(0x4002_1000usize as _) };
 pub const FLASH: flash::Flash = unsafe { flash::Flash::from_ptr(0x4002_2000usize as _) };
-pub const OPA: extend::Extend = unsafe { extend::Extend::from_ptr(0x4002_3800usize as _) };
 pub const PFIC: pfic::Pfic = unsafe { pfic::Pfic::from_ptr(0xe000_e000usize as _) };
 pub const SYSTICK: systick::Systick = unsafe { systick::Systick::from_ptr(0xe000_f000usize as _) };
 #[cfg(feature = "rt")]
@@ -161,26 +160,22 @@ pub fn GPIO(n: usize) -> gpio::Gpio {
 }
 #[path = "../../peripherals/adc_v0.rs"]
 pub mod adc;
-#[path = "../../peripherals/afio_v0.rs"]
+#[path = "../../peripherals/afio_ch641.rs"]
 pub mod afio;
 #[path = "../../peripherals/dma_v1.rs"]
 pub mod dma;
-#[path = "../../peripherals/extend_v0.rs"]
-pub mod extend;
 #[path = "../../peripherals/exti_common.rs"]
 pub mod exti;
 #[path = "../../peripherals/flash_v0.rs"]
 pub mod flash;
-#[path = "../../peripherals/gpio_v0.rs"]
+#[path = "../../peripherals/gpio_v3.rs"]
 pub mod gpio;
 #[path = "../../peripherals/i2c_v0.rs"]
 pub mod i2c;
 #[path = "../../peripherals/pfic_rv2.rs"]
 pub mod pfic;
-#[path = "../../peripherals/rcc_v0.rs"]
+#[path = "../../peripherals/rcc_ch641.rs"]
 pub mod rcc;
-#[path = "../../peripherals/spi_v0.rs"]
-pub mod spi;
 #[path = "../../peripherals/systick_rv2.rs"]
 pub mod systick;
 #[path = "../../peripherals/timer_v3.rs"]
