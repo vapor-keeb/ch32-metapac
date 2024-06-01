@@ -146,6 +146,17 @@ pub mod regs {
     #[derive(Copy, Clone, Eq, PartialEq)]
     pub struct Config(pub u16);
     impl Config {
+        #[doc = "PIN filtering enabled."]
+        #[inline(always)]
+        pub const fn cc_filter(&self) -> bool {
+            let val = (self.0 >> 0usize) & 0x01;
+            val != 0
+        }
+        #[doc = "PIN filtering enabled."]
+        #[inline(always)]
+        pub fn set_cc_filter(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 0usize)) | (((val as u16) & 0x01) << 0usize);
+        }
         #[doc = "PD ITClear."]
         #[inline(always)]
         pub const fn pd_all_clr(&self) -> bool {
@@ -160,68 +171,46 @@ pub mod regs {
         #[doc = "PD Commutation port."]
         #[inline(always)]
         pub const fn cc_sel(&self) -> super::vals::CcSel {
-            let val = (self.0 >> 2usize) & 0x01;
+            let val = (self.0 >> 2usize) & 0x03;
             super::vals::CcSel::from_bits(val as u8)
         }
         #[doc = "PD Commutation port."]
         #[inline(always)]
         pub fn set_cc_sel(&mut self, val: super::vals::CcSel) {
-            self.0 = (self.0 & !(0x01 << 2usize)) | (((val.to_bits() as u16) & 0x01) << 2usize);
+            self.0 = (self.0 & !(0x03 << 2usize)) | (((val.to_bits() as u16) & 0x03) << 2usize);
         }
         #[doc = "PD DMA Enable."]
         #[inline(always)]
         pub const fn pd_dma_en(&self) -> bool {
-            let val = (self.0 >> 3usize) & 0x01;
+            let val = (self.0 >> 4usize) & 0x01;
             val != 0
         }
         #[doc = "PD DMA Enable."]
         #[inline(always)]
         pub fn set_pd_dma_en(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 3usize)) | (((val as u16) & 0x01) << 3usize);
+            self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u16) & 0x01) << 4usize);
         }
         #[doc = "PD RST Enable."]
         #[inline(always)]
         pub const fn pd_rst_en(&self) -> bool {
-            let val = (self.0 >> 4usize) & 0x01;
+            let val = (self.0 >> 5usize) & 0x01;
             val != 0
         }
         #[doc = "PD RST Enable."]
         #[inline(always)]
         pub fn set_pd_rst_en(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u16) & 0x01) << 4usize);
+            self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u16) & 0x01) << 5usize);
         }
         #[doc = "wakeup polarity."]
         #[inline(always)]
         pub const fn wake_polar(&self) -> bool {
-            let val = (self.0 >> 5usize) & 0x01;
+            let val = (self.0 >> 6usize) & 0x01;
             val != 0
         }
         #[doc = "wakeup polarity."]
         #[inline(always)]
         pub fn set_wake_polar(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u16) & 0x01) << 5usize);
-        }
-        #[doc = "Multiple 0 received."]
-        #[inline(always)]
-        pub const fn multi_0(&self) -> bool {
-            let val = (self.0 >> 8usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Multiple 0 received."]
-        #[inline(always)]
-        pub fn set_multi_0(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 8usize)) | (((val as u16) & 0x01) << 8usize);
-        }
-        #[doc = "Value of RX/TX shift register, bit 0."]
-        #[inline(always)]
-        pub const fn rtx_bit0(&self) -> bool {
-            let val = (self.0 >> 9usize) & 0x01;
-            val != 0
-        }
-        #[doc = "Value of RX/TX shift register, bit 0."]
-        #[inline(always)]
-        pub fn set_rtx_bit0(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 9usize)) | (((val as u16) & 0x01) << 9usize);
+            self.0 = (self.0 & !(0x01 << 6usize)) | (((val as u16) & 0x01) << 6usize);
         }
         #[doc = "IO Enable."]
         #[inline(always)]
@@ -323,6 +312,17 @@ pub mod regs {
         pub fn set_bmc_start(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 1usize)) | (((val as u8) & 0x01) << 1usize);
         }
+        #[doc = "PD receive status identification."]
+        #[inline(always)]
+        pub const fn rx_start(&self) -> u8 {
+            let val = (self.0 >> 2usize) & 0x07;
+            val as u8
+        }
+        #[doc = "PD receive status identification."]
+        #[inline(always)]
+        pub fn set_rx_start(&mut self, val: u8) {
+            self.0 = (self.0 & !(0x07 << 2usize)) | (((val as u8) & 0x07) << 2usize);
+        }
         #[doc = "DATA_FLAG value."]
         #[inline(always)]
         pub const fn data_flag(&self) -> bool {
@@ -334,26 +334,26 @@ pub mod regs {
         pub fn set_data_flag(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u8) & 0x01) << 5usize);
         }
-        #[doc = "RX_ST_L value."]
+        #[doc = "TX_BIT_BACK value."]
         #[inline(always)]
-        pub const fn rx_st_l(&self) -> bool {
+        pub const fn tx_bit_back(&self) -> bool {
             let val = (self.0 >> 6usize) & 0x01;
             val != 0
         }
-        #[doc = "RX_ST_L value."]
+        #[doc = "TX_BIT_BACK value."]
         #[inline(always)]
-        pub fn set_rx_st_l(&mut self, val: bool) {
+        pub fn set_tx_bit_back(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 6usize)) | (((val as u8) & 0x01) << 6usize);
         }
-        #[doc = "RX_ST_H value."]
+        #[doc = "BMC_BYTE_HI value."]
         #[inline(always)]
-        pub const fn rx_st_h(&self) -> bool {
+        pub const fn bmc_byte_hi(&self) -> bool {
             let val = (self.0 >> 7usize) & 0x01;
             val != 0
         }
-        #[doc = "RX_ST_H value."]
+        #[doc = "BMC_BYTE_HI value."]
         #[inline(always)]
-        pub fn set_rx_st_h(&mut self, val: bool) {
+        pub fn set_bmc_byte_hi(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 7usize)) | (((val as u8) & 0x01) << 7usize);
         }
     }
@@ -363,62 +363,62 @@ pub mod regs {
             Control(0)
         }
     }
-    #[doc = "CC1 port control register."]
+    #[doc = "CC port control register."]
     #[repr(transparent)]
     #[derive(Copy, Clone, Eq, PartialEq)]
     pub struct PortCc(pub u8);
     impl PortCc {
-        #[doc = "CC port comparator analog input."]
+        #[doc = "CC1 output of the voltage comparator."]
         #[inline(always)]
         pub const fn pa_cc_ai(&self) -> bool {
             let val = (self.0 >> 0usize) & 0x01;
             val != 0
         }
-        #[doc = "CC port comparator analog input."]
+        #[doc = "CC1 output of the voltage comparator."]
         #[inline(always)]
         pub fn set_pa_cc_ai(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 0usize)) | (((val as u8) & 0x01) << 0usize);
         }
-        #[doc = "CC port pull-down current."]
+        #[doc = "CC1 port pull-down resistor enable."]
         #[inline(always)]
         pub const fn cc_pd(&self) -> bool {
             let val = (self.0 >> 1usize) & 0x01;
             val != 0
         }
-        #[doc = "CC port pull-down current."]
+        #[doc = "CC1 port pull-down resistor enable."]
         #[inline(always)]
         pub fn set_cc_pd(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 1usize)) | (((val as u8) & 0x01) << 1usize);
         }
-        #[doc = "CC port pull-up current."]
+        #[doc = "CC1 port pull-up current selection."]
         #[inline(always)]
         pub const fn cc_pu(&self) -> super::vals::PortCcPu {
             let val = (self.0 >> 2usize) & 0x03;
             super::vals::PortCcPu::from_bits(val as u8)
         }
-        #[doc = "CC port pull-up current."]
+        #[doc = "CC1 port pull-up current selection."]
         #[inline(always)]
         pub fn set_cc_pu(&mut self, val: super::vals::PortCcPu) {
             self.0 = (self.0 & !(0x03 << 2usize)) | (((val.to_bits() as u8) & 0x03) << 2usize);
         }
-        #[doc = "CC port level 0 voltage."]
+        #[doc = "CC1 port output of the low voltage."]
         #[inline(always)]
         pub const fn cc_lve(&self) -> bool {
             let val = (self.0 >> 4usize) & 0x01;
             val != 0
         }
-        #[doc = "CC port level 0 voltage."]
+        #[doc = "CC1 port output of the low voltage."]
         #[inline(always)]
         pub fn set_cc_lve(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u8) & 0x01) << 4usize);
         }
-        #[doc = "CC port comparator enable."]
+        #[doc = "CC1 voltage comparator enable and voltage comparator reference voltage. (CC_CE and CC_CVS)"]
         #[inline(always)]
         pub const fn cc_ce(&self) -> super::vals::PortCcCe {
             let val = (self.0 >> 5usize) & 0x07;
             super::vals::PortCcCe::from_bits(val as u8)
         }
-        #[doc = "CC port comparator enable."]
+        #[doc = "CC1 voltage comparator enable and voltage comparator reference voltage. (CC_CE and CC_CVS)"]
         #[inline(always)]
         pub fn set_cc_ce(&mut self, val: super::vals::PortCcCe) {
             self.0 = (self.0 & !(0x07 << 5usize)) | (((val.to_bits() as u8) & 0x07) << 5usize);
@@ -524,46 +524,46 @@ pub mod regs {
     #[derive(Copy, Clone, Eq, PartialEq)]
     pub struct TxSel(pub u8);
     impl TxSel {
-        #[doc = "TX_SEL1 value."]
+        #[doc = "K-CODE1 type selection."]
         #[inline(always)]
         pub const fn tx_sel1(&self) -> bool {
             let val = (self.0 >> 0usize) & 0x01;
             val != 0
         }
-        #[doc = "TX_SEL1 value."]
+        #[doc = "K-CODE1 type selection."]
         #[inline(always)]
         pub fn set_tx_sel1(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 0usize)) | (((val as u8) & 0x01) << 0usize);
         }
-        #[doc = "TX_SEL2 value."]
+        #[doc = "K-CODE2 type selection."]
         #[inline(always)]
         pub const fn tx_sel2(&self) -> u8 {
             let val = (self.0 >> 2usize) & 0x03;
             val as u8
         }
-        #[doc = "TX_SEL2 value."]
+        #[doc = "K-CODE2 type selection."]
         #[inline(always)]
         pub fn set_tx_sel2(&mut self, val: u8) {
             self.0 = (self.0 & !(0x03 << 2usize)) | (((val as u8) & 0x03) << 2usize);
         }
-        #[doc = "TX_SEL3 value."]
+        #[doc = "K-CODE3 type selection."]
         #[inline(always)]
         pub const fn tx_sel3(&self) -> u8 {
             let val = (self.0 >> 4usize) & 0x03;
             val as u8
         }
-        #[doc = "TX_SEL3 value."]
+        #[doc = "K-CODE3 type selection."]
         #[inline(always)]
         pub fn set_tx_sel3(&mut self, val: u8) {
             self.0 = (self.0 & !(0x03 << 4usize)) | (((val as u8) & 0x03) << 4usize);
         }
-        #[doc = "TX_SEL4 value."]
+        #[doc = "K-CODE4 type selection."]
         #[inline(always)]
         pub const fn tx_sel4(&self) -> u8 {
             let val = (self.0 >> 6usize) & 0x03;
             val as u8
         }
-        #[doc = "TX_SEL4 value."]
+        #[doc = "K-CODE4 type selection."]
         #[inline(always)]
         pub fn set_tx_sel4(&mut self, val: u8) {
             self.0 = (self.0 & !(0x03 << 6usize)) | (((val as u8) & 0x03) << 6usize);
@@ -619,11 +619,14 @@ pub mod vals {
         CC1 = 0x0,
         #[doc = "Select CC2."]
         CC2 = 0x01,
+        #[doc = "Select CC3."]
+        CC3 = 0x02,
+        _RESERVED_3 = 0x03,
     }
     impl CcSel {
         #[inline(always)]
         pub const fn from_bits(val: u8) -> CcSel {
-            unsafe { core::mem::transmute(val & 0x01) }
+            unsafe { core::mem::transmute(val & 0x03) }
         }
         #[inline(always)]
         pub const fn to_bits(self) -> u8 {
@@ -645,20 +648,18 @@ pub mod vals {
     #[repr(u8)]
     #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
     pub enum PortCcCe {
-        #[doc = "Closed."]
+        #[doc = "No pull up current."]
         CLOSED = 0x0,
         _RESERVED_1 = 0x01,
-        #[doc = "0.22V."]
-        V0_22 = 0x02,
-        #[doc = "0.43V."]
-        V0_43 = 0x03,
-        #[doc = "0.55V."]
+        _RESERVED_2 = 0x02,
+        _RESERVED_3 = 0x03,
+        #[doc = "0.55V"]
         V0_55 = 0x04,
-        #[doc = "0.66V."]
-        V0_66 = 0x05,
-        #[doc = "0.96V."]
-        V0_96 = 0x06,
-        #[doc = "1.23V."]
+        #[doc = "0.22V"]
+        V0_22 = 0x05,
+        #[doc = "0.66V"]
+        V0_66 = 0x06,
+        #[doc = "1.23V"]
         V1_23 = 0x07,
     }
     impl PortCcCe {

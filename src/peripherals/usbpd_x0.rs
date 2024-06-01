@@ -59,15 +59,11 @@ impl Usbpd {
     pub const fn bmc_byte_cnt(self) -> crate::common::Reg<regs::BmcByteCnt, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x0ausize) as _) }
     }
-    #[doc = "CC1 port control register."]
+    #[doc = "CC port control register."]
     #[inline(always)]
-    pub const fn port_cc1(self) -> crate::common::Reg<regs::PortCc, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x0cusize) as _) }
-    }
-    #[doc = "CC2 port control register."]
-    #[inline(always)]
-    pub const fn port_cc2(self) -> crate::common::Reg<regs::PortCc, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x0eusize) as _) }
+    pub const fn port_cc(self, n: usize) -> crate::common::Reg<regs::PortCc, crate::common::RW> {
+        assert!(n < 4usize);
+        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x0cusize + n * 1usize) as _) }
     }
     #[doc = "PD buffer start address register."]
     #[inline(always)]

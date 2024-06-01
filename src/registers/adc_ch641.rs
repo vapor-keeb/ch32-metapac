@@ -3,7 +3,7 @@ pub(crate) static REGISTERS: IR = IR {
     blocks: &[Block {
         name: "Adc",
         extends: None,
-        description: Some("Analog to digital converter for V003. No TKEY, 10bit."),
+        description: Some("Analog to digital converter for CH641. No TKEY, 10bit."),
         items: &[
             BlockItem {
                 name: "statr",
@@ -675,8 +675,8 @@ pub(crate) static REGISTERS: IR = IR {
                     value: 2,
                 },
                 EnumVariant {
-                    name: "TIM2_TRGO",
-                    description: Some("Timer 2 TRGO event."),
+                    name: "TIM1_CC3",
+                    description: Some("Timer 1 capture compare 3."),
                     value: 3,
                 },
                 EnumVariant {
@@ -690,8 +690,8 @@ pub(crate) static REGISTERS: IR = IR {
                     value: 5,
                 },
                 EnumVariant {
-                    name: "PD3_PC2",
-                    description: Some("PD3/PC2 pin."),
+                    name: "PA4_PA15",
+                    description: Some("PA4/PA15 pin."),
                     value: 6,
                 },
                 EnumVariant {
@@ -707,28 +707,33 @@ pub(crate) static REGISTERS: IR = IR {
             bit_size: 3,
             variants: &[
                 EnumVariant {
-                    name: "TIM1_CC3",
-                    description: Some("Timer 1 capture compare 3."),
-                    value: 0,
-                },
-                EnumVariant {
-                    name: "TIM1_CC4",
-                    description: Some("Timer 1 capture compare 4."),
+                    name: "TIM1_CC1",
+                    description: Some("Timer 1 capture compare 1,"),
                     value: 1,
                 },
                 EnumVariant {
-                    name: "TIM2_CC3",
-                    description: Some("Timer 2 capture compare 3."),
+                    name: "TIM1_CC2",
+                    description: Some("Timer 1 capture compare 2."),
                     value: 2,
                 },
                 EnumVariant {
-                    name: "TIM2_CC4",
-                    description: Some("Timer 2 capture compare 4."),
+                    name: "TIM1_CC3",
+                    description: Some("Timer 1 capture compare 3."),
                     value: 3,
                 },
                 EnumVariant {
-                    name: "PD1_PA2",
-                    description: Some("PD1/PA2 pin."),
+                    name: "TIM2_CC1",
+                    description: Some("Timer 2 capture compare 1."),
+                    value: 4,
+                },
+                EnumVariant {
+                    name: "TIM2_CC2",
+                    description: Some("Timer 2 capture compare 2."),
+                    value: 5,
+                },
+                EnumVariant {
+                    name: "PA4_PA15",
+                    description: Some("PA4/PA15 pin."),
                     value: 6,
                 },
                 EnumVariant {
@@ -749,39 +754,19 @@ pub(crate) static REGISTERS: IR = IR {
                     value: 0,
                 },
                 EnumVariant {
-                    name: "CYCLES9",
-                    description: Some("9 cycles"),
+                    name: "CYCLES13",
+                    description: Some("13 cycles"),
                     value: 1,
                 },
                 EnumVariant {
-                    name: "CYCLES15",
-                    description: Some("15 cycles"),
+                    name: "CYCLES37",
+                    description: Some("37 cycles"),
                     value: 2,
                 },
                 EnumVariant {
-                    name: "CYCLES30",
-                    description: Some("30 cycles"),
+                    name: "CYCLES49",
+                    description: Some("49 cycles"),
                     value: 3,
-                },
-                EnumVariant {
-                    name: "CYCLES43",
-                    description: Some("43 cycles"),
-                    value: 4,
-                },
-                EnumVariant {
-                    name: "CYCLES57",
-                    description: Some("57 cycles"),
-                    value: 5,
-                },
-                EnumVariant {
-                    name: "CYCLES73",
-                    description: Some("73 cycles"),
-                    value: 6,
-                },
-                EnumVariant {
-                    name: "CYCLES241",
-                    description: Some("241 cycles"),
-                    value: 7,
                 },
             ],
         },

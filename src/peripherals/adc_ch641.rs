@@ -3,7 +3,7 @@
 #![allow(clippy::unnecessary_cast)]
 #![allow(clippy::erasing_op)]
 
-#[doc = "Analog to digital converter for V003. No TKEY, 10bit."]
+#[doc = "Analog to digital converter for CH641. No TKEY, 10bit."]
 #[derive(Copy, Clone, Eq, PartialEq)]
 pub struct Adc {
     ptr: *mut u8,
@@ -844,14 +844,14 @@ pub mod vals {
         TIM1_CC1 = 0x01,
         #[doc = "Timer 1 capture compare 2."]
         TIM1_CC2 = 0x02,
-        #[doc = "Timer 2 TRGO event."]
-        TIM2_TRGO = 0x03,
+        #[doc = "Timer 1 capture compare 3."]
+        TIM1_CC3 = 0x03,
         #[doc = "Timer 2 capture compare 1."]
         TIM2_CC1 = 0x04,
         #[doc = "Timer 2 capture compare 2."]
         TIM2_CC2 = 0x05,
-        #[doc = "PD3/PC2 pin."]
-        PD3_PC2 = 0x06,
+        #[doc = "PA4/PA15 pin."]
+        PA4_PA15 = 0x06,
         #[doc = "Software start."]
         SWSTART = 0x07,
     }
@@ -881,18 +881,19 @@ pub mod vals {
     #[repr(u8)]
     #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
     pub enum Jextsel {
+        _RESERVED_0 = 0x0,
+        #[doc = "Timer 1 capture compare 1,"]
+        TIM1_CC1 = 0x01,
+        #[doc = "Timer 1 capture compare 2."]
+        TIM1_CC2 = 0x02,
         #[doc = "Timer 1 capture compare 3."]
-        TIM1_CC3 = 0x0,
-        #[doc = "Timer 1 capture compare 4."]
-        TIM1_CC4 = 0x01,
-        #[doc = "Timer 2 capture compare 3."]
-        TIM2_CC3 = 0x02,
-        #[doc = "Timer 2 capture compare 4."]
-        TIM2_CC4 = 0x03,
-        _RESERVED_4 = 0x04,
-        _RESERVED_5 = 0x05,
-        #[doc = "PD1/PA2 pin."]
-        PD1_PA2 = 0x06,
+        TIM1_CC3 = 0x03,
+        #[doc = "Timer 2 capture compare 1."]
+        TIM2_CC1 = 0x04,
+        #[doc = "Timer 2 capture compare 2."]
+        TIM2_CC2 = 0x05,
+        #[doc = "PA4/PA15 pin."]
+        PA4_PA15 = 0x06,
         #[doc = "Software start."]
         JSWSTART = 0x07,
     }
@@ -924,20 +925,16 @@ pub mod vals {
     pub enum SampleTime {
         #[doc = "3 cycles"]
         CYCLES3 = 0x0,
-        #[doc = "9 cycles"]
-        CYCLES9 = 0x01,
-        #[doc = "15 cycles"]
-        CYCLES15 = 0x02,
-        #[doc = "30 cycles"]
-        CYCLES30 = 0x03,
-        #[doc = "43 cycles"]
-        CYCLES43 = 0x04,
-        #[doc = "57 cycles"]
-        CYCLES57 = 0x05,
-        #[doc = "73 cycles"]
-        CYCLES73 = 0x06,
-        #[doc = "241 cycles"]
-        CYCLES241 = 0x07,
+        #[doc = "13 cycles"]
+        CYCLES13 = 0x01,
+        #[doc = "37 cycles"]
+        CYCLES37 = 0x02,
+        #[doc = "49 cycles"]
+        CYCLES49 = 0x03,
+        _RESERVED_4 = 0x04,
+        _RESERVED_5 = 0x05,
+        _RESERVED_6 = 0x06,
+        _RESERVED_7 = 0x07,
     }
     impl SampleTime {
         #[inline(always)]

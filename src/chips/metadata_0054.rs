@@ -70,6 +70,21 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         ],
     },
     Peripheral {
+        name: "EXTEND",
+        address: 0x40023800,
+        registers: Some(PeripheralRegisters {
+            kind: "extend",
+            version: "ch641",
+            block: "EXTEND",
+            ir: &extend::REGISTERS,
+        }),
+        rcc: None,
+        remap: None,
+        pins: &[],
+        dma_channels: &[],
+        interrupts: &[],
+    },
+    Peripheral {
         name: "RCC",
         address: 0x40021000,
         registers: Some(PeripheralRegisters {
@@ -332,14 +347,14 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         ],
         dma_channels: &[
             PeripheralDmaChannel {
-                signal: "UP",
-                channel: Some("DMA1_CH5"),
+                signal: "CH3",
+                channel: Some("DMA1_CH6"),
                 dmamux: None,
                 dma: None,
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "COM",
+                signal: "TRIG",
                 channel: Some("DMA1_CH4"),
                 dmamux: None,
                 dma: None,
@@ -353,22 +368,22 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "TRIG",
-                channel: Some("DMA1_CH4"),
-                dmamux: None,
-                dma: None,
-                request: None,
-            },
-            PeripheralDmaChannel {
-                signal: "CH3",
-                channel: Some("DMA1_CH6"),
-                dmamux: None,
-                dma: None,
-                request: None,
-            },
-            PeripheralDmaChannel {
                 signal: "CH2",
                 channel: Some("DMA1_CH3"),
+                dmamux: None,
+                dma: None,
+                request: None,
+            },
+            PeripheralDmaChannel {
+                signal: "UP",
+                channel: Some("DMA1_CH5"),
+                dmamux: None,
+                dma: None,
+                request: None,
+            },
+            PeripheralDmaChannel {
+                signal: "COM",
+                channel: Some("DMA1_CH4"),
                 dmamux: None,
                 dma: None,
                 request: None,
@@ -659,15 +674,15 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         ],
         dma_channels: &[
             PeripheralDmaChannel {
-                signal: "TX",
-                channel: Some("DMA1_CH4"),
+                signal: "RX",
+                channel: Some("DMA1_CH5"),
                 dmamux: None,
                 dma: None,
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "RX",
-                channel: Some("DMA1_CH5"),
+                signal: "TX",
+                channel: Some("DMA1_CH4"),
                 dmamux: None,
                 dma: None,
                 request: None,
@@ -738,15 +753,15 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         ],
         dma_channels: &[
             PeripheralDmaChannel {
-                signal: "TX",
-                channel: Some("DMA1_CH6"),
+                signal: "RX",
+                channel: Some("DMA1_CH7"),
                 dmamux: None,
                 dma: None,
                 request: None,
             },
             PeripheralDmaChannel {
-                signal: "RX",
-                channel: Some("DMA1_CH7"),
+                signal: "TX",
+                channel: Some("DMA1_CH6"),
                 dmamux: None,
                 dma: None,
                 request: None,
@@ -768,7 +783,7 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         address: 0x40012400,
         registers: Some(PeripheralRegisters {
             kind: "adc",
-            version: "v0",
+            version: "ch641",
             block: "ADC",
             ir: &adc::REGISTERS,
         }),
@@ -879,6 +894,55 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
             signal: "GLOBAL",
             interrupt: "ADC",
         }],
+    },
+    Peripheral {
+        name: "USBPD",
+        address: 0x40027000,
+        registers: Some(PeripheralRegisters {
+            kind: "usbpd",
+            version: "ch641",
+            block: "USBPD",
+            ir: &usbpd::REGISTERS,
+        }),
+        rcc: Some(PeripheralRcc {
+            bus_clock: "HCLK",
+            kernel_clock: Clock("HCLK"),
+            enable: Some(PeripheralRccRegister {
+                register: "AHBPCENR",
+                field: "USBPDEN",
+            }),
+            reset: None,
+            stop_mode: StopMode::Stop1,
+        }),
+        remap: None,
+        pins: &[
+            PeripheralPin {
+                pin: "PB0",
+                signal: "CC1",
+                remap: None,
+            },
+            PeripheralPin {
+                pin: "PB1",
+                signal: "CC2",
+                remap: None,
+            },
+            PeripheralPin {
+                pin: "PB9",
+                signal: "CC3",
+                remap: None,
+            },
+        ],
+        dma_channels: &[],
+        interrupts: &[
+            PeripheralInterrupt {
+                signal: "GLOBAL",
+                interrupt: "USBPD",
+            },
+            PeripheralInterrupt {
+                signal: "WKUP",
+                interrupt: "USBPD_WKUP",
+            },
+        ],
     },
 ];
 pub(crate) static INTERRUPTS: &[Interrupt] = &[
@@ -1034,12 +1098,14 @@ pub(crate) static DMA_CHANNELS: &[DmaChannel] = &[
         dmamux_channel: None,
     },
 ];
-#[path = "../registers/adc_v0.rs"]
+#[path = "../registers/adc_ch641.rs"]
 pub mod adc;
 #[path = "../registers/afio_ch641.rs"]
 pub mod afio;
 #[path = "../registers/dma_v1.rs"]
 pub mod dma;
+#[path = "../registers/extend_ch641.rs"]
+pub mod extend;
 #[path = "../registers/exti_common.rs"]
 pub mod exti;
 #[path = "../registers/flash_v0.rs"]
@@ -1058,3 +1124,5 @@ pub mod systick;
 pub mod timer;
 #[path = "../registers/usart_common.rs"]
 pub mod usart;
+#[path = "../registers/usbpd_ch641.rs"]
+pub mod usbpd;

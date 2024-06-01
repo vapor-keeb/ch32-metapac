@@ -94,24 +94,13 @@ pub(crate) static REGISTERS: IR = IR {
                 }),
             },
             BlockItem {
-                name: "port_cc1",
-                description: Some("CC1 port control register."),
-                array: None,
+                name: "port_cc",
+                description: Some("CC port control register."),
+                array: Some(Array::Regular(RegularArray { len: 4, stride: 1 })),
                 byte_offset: 0xc,
                 inner: BlockItemInner::Register(Register {
                     access: Access::ReadWrite,
-                    bit_size: 16,
-                    fieldset: Some("PortCc"),
-                }),
-            },
-            BlockItem {
-                name: "port_cc2",
-                description: Some("CC2 port control register."),
-                array: None,
-                byte_offset: 0xe,
-                inner: BlockItemInner::Register(Register {
-                    access: Access::ReadWrite,
-                    bit_size: 16,
+                    bit_size: 8,
                     fieldset: Some("PortCc"),
                 }),
             },
