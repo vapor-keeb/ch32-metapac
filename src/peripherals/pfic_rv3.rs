@@ -143,69 +143,69 @@ pub mod regs {
     impl Cfgr {
         #[doc = "HWSTKCTRL."]
         #[inline(always)]
-        pub const fn hwstkctrl(&self) -> super::vals::Hwstkctrl {
+        pub const fn hwstkctrl(&self) -> bool {
             let val = (self.0 >> 0usize) & 0x01;
-            super::vals::Hwstkctrl::from_bits(val as u8)
+            val != 0
         }
         #[doc = "HWSTKCTRL."]
         #[inline(always)]
-        pub fn set_hwstkctrl(&mut self, val: super::vals::Hwstkctrl) {
-            self.0 = (self.0 & !(0x01 << 0usize)) | (((val.to_bits() as u32) & 0x01) << 0usize);
+        pub fn set_hwstkctrl(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 0usize)) | (((val as u32) & 0x01) << 0usize);
         }
         #[doc = "NESTCTRL."]
         #[inline(always)]
-        pub const fn nestctrl(&self) -> super::vals::Nestctrl {
+        pub const fn nestctrl(&self) -> bool {
             let val = (self.0 >> 1usize) & 0x01;
-            super::vals::Nestctrl::from_bits(val as u8)
+            val != 0
         }
         #[doc = "NESTCTRL."]
         #[inline(always)]
-        pub fn set_nestctrl(&mut self, val: super::vals::Nestctrl) {
-            self.0 = (self.0 & !(0x01 << 1usize)) | (((val.to_bits() as u32) & 0x01) << 1usize);
+        pub fn set_nestctrl(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 1usize)) | (((val as u32) & 0x01) << 1usize);
         }
         #[doc = "NMISET."]
         #[inline(always)]
-        pub const fn nmiset(&self) -> super::vals::Nmiset {
+        pub const fn nmiset(&self) -> bool {
             let val = (self.0 >> 2usize) & 0x01;
-            super::vals::Nmiset::from_bits(val as u8)
+            val != 0
         }
         #[doc = "NMISET."]
         #[inline(always)]
-        pub fn set_nmiset(&mut self, val: super::vals::Nmiset) {
-            self.0 = (self.0 & !(0x01 << 2usize)) | (((val.to_bits() as u32) & 0x01) << 2usize);
+        pub fn set_nmiset(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 2usize)) | (((val as u32) & 0x01) << 2usize);
         }
         #[doc = "NMIRESET."]
         #[inline(always)]
-        pub const fn nmireset(&self) -> super::vals::Nmireset {
+        pub const fn nmireset(&self) -> bool {
             let val = (self.0 >> 3usize) & 0x01;
-            super::vals::Nmireset::from_bits(val as u8)
+            val != 0
         }
         #[doc = "NMIRESET."]
         #[inline(always)]
-        pub fn set_nmireset(&mut self, val: super::vals::Nmireset) {
-            self.0 = (self.0 & !(0x01 << 3usize)) | (((val.to_bits() as u32) & 0x01) << 3usize);
+        pub fn set_nmireset(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 3usize)) | (((val as u32) & 0x01) << 3usize);
         }
         #[doc = "EXCSET."]
         #[inline(always)]
-        pub const fn excset(&self) -> super::vals::Excset {
+        pub const fn excset(&self) -> bool {
             let val = (self.0 >> 4usize) & 0x01;
-            super::vals::Excset::from_bits(val as u8)
+            val != 0
         }
         #[doc = "EXCSET."]
         #[inline(always)]
-        pub fn set_excset(&mut self, val: super::vals::Excset) {
-            self.0 = (self.0 & !(0x01 << 4usize)) | (((val.to_bits() as u32) & 0x01) << 4usize);
+        pub fn set_excset(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u32) & 0x01) << 4usize);
         }
         #[doc = "EXCRESET."]
         #[inline(always)]
-        pub const fn excreset(&self) -> super::vals::Excreset {
+        pub const fn excreset(&self) -> bool {
             let val = (self.0 >> 5usize) & 0x01;
-            super::vals::Excreset::from_bits(val as u8)
+            val != 0
         }
         #[doc = "EXCRESET."]
         #[inline(always)]
-        pub fn set_excreset(&mut self, val: super::vals::Excreset) {
-            self.0 = (self.0 & !(0x01 << 5usize)) | (((val.to_bits() as u32) & 0x01) << 5usize);
+        pub fn set_excreset(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u32) & 0x01) << 5usize);
         }
         #[doc = "PFICRSET."]
         #[inline(always)]
@@ -220,14 +220,14 @@ pub mod regs {
         }
         #[doc = "SYSRESET."]
         #[inline(always)]
-        pub const fn sysreset(&self) -> super::vals::Sysreset {
+        pub const fn sysreset(&self) -> bool {
             let val = (self.0 >> 7usize) & 0x01;
-            super::vals::Sysreset::from_bits(val as u8)
+            val != 0
         }
         #[doc = "SYSRESET."]
         #[inline(always)]
-        pub fn set_sysreset(&mut self, val: super::vals::Sysreset) {
-            self.0 = (self.0 & !(0x01 << 7usize)) | (((val.to_bits() as u32) & 0x01) << 7usize);
+        pub fn set_sysreset(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 7usize)) | (((val as u32) & 0x01) << 7usize);
         }
         #[doc = "KEYCODE."]
         #[inline(always)]
@@ -414,36 +414,36 @@ pub mod regs {
     impl Gisr {
         #[doc = "NESTSTA."]
         #[inline(always)]
-        pub const fn neststa(&self) -> super::vals::Neststa {
+        pub const fn neststa(&self) -> u8 {
             let val = (self.0 >> 0usize) & 0xff;
-            super::vals::Neststa::from_bits(val as u8)
+            val as u8
         }
         #[doc = "NESTSTA."]
         #[inline(always)]
-        pub fn set_neststa(&mut self, val: super::vals::Neststa) {
-            self.0 = (self.0 & !(0xff << 0usize)) | (((val.to_bits() as u32) & 0xff) << 0usize);
+        pub fn set_neststa(&mut self, val: u8) {
+            self.0 = (self.0 & !(0xff << 0usize)) | (((val as u32) & 0xff) << 0usize);
         }
         #[doc = "GACTSTA."]
         #[inline(always)]
-        pub const fn gactsta(&self) -> super::vals::Gactsta {
+        pub const fn gactsta(&self) -> bool {
             let val = (self.0 >> 8usize) & 0x01;
-            super::vals::Gactsta::from_bits(val as u8)
+            val != 0
         }
         #[doc = "GACTSTA."]
         #[inline(always)]
-        pub fn set_gactsta(&mut self, val: super::vals::Gactsta) {
-            self.0 = (self.0 & !(0x01 << 8usize)) | (((val.to_bits() as u32) & 0x01) << 8usize);
+        pub fn set_gactsta(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 8usize)) | (((val as u32) & 0x01) << 8usize);
         }
         #[doc = "GPENDSTA."]
         #[inline(always)]
-        pub const fn gpendsta(&self) -> super::vals::Gpendsta {
+        pub const fn gpendsta(&self) -> bool {
             let val = (self.0 >> 9usize) & 0x01;
-            super::vals::Gpendsta::from_bits(val as u8)
+            val != 0
         }
         #[doc = "GPENDSTA."]
         #[inline(always)]
-        pub fn set_gpendsta(&mut self, val: super::vals::Gpendsta) {
-            self.0 = (self.0 & !(0x01 << 9usize)) | (((val.to_bits() as u32) & 0x01) << 9usize);
+        pub fn set_gpendsta(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 9usize)) | (((val as u32) & 0x01) << 9usize);
         }
     }
     impl Default for Gisr {
@@ -855,58 +855,58 @@ pub mod regs {
     impl Sctlr {
         #[doc = "SLEEPONEXIT."]
         #[inline(always)]
-        pub const fn sleeponexit(&self) -> super::vals::Sleeponexit {
+        pub const fn sleeponexit(&self) -> bool {
             let val = (self.0 >> 1usize) & 0x01;
-            super::vals::Sleeponexit::from_bits(val as u8)
+            val != 0
         }
         #[doc = "SLEEPONEXIT."]
         #[inline(always)]
-        pub fn set_sleeponexit(&mut self, val: super::vals::Sleeponexit) {
-            self.0 = (self.0 & !(0x01 << 1usize)) | (((val.to_bits() as u32) & 0x01) << 1usize);
+        pub fn set_sleeponexit(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 1usize)) | (((val as u32) & 0x01) << 1usize);
         }
         #[doc = "SLEEPDEEP."]
         #[inline(always)]
-        pub const fn sleepdeep(&self) -> super::vals::Sleepdeep {
+        pub const fn sleepdeep(&self) -> bool {
             let val = (self.0 >> 2usize) & 0x01;
-            super::vals::Sleepdeep::from_bits(val as u8)
+            val != 0
         }
         #[doc = "SLEEPDEEP."]
         #[inline(always)]
-        pub fn set_sleepdeep(&mut self, val: super::vals::Sleepdeep) {
-            self.0 = (self.0 & !(0x01 << 2usize)) | (((val.to_bits() as u32) & 0x01) << 2usize);
+        pub fn set_sleepdeep(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 2usize)) | (((val as u32) & 0x01) << 2usize);
         }
         #[doc = "WFITOWFE."]
         #[inline(always)]
-        pub const fn wfitowfe(&self) -> super::vals::Wfitowfe {
+        pub const fn wfitowfe(&self) -> bool {
             let val = (self.0 >> 3usize) & 0x01;
-            super::vals::Wfitowfe::from_bits(val as u8)
+            val != 0
         }
         #[doc = "WFITOWFE."]
         #[inline(always)]
-        pub fn set_wfitowfe(&mut self, val: super::vals::Wfitowfe) {
-            self.0 = (self.0 & !(0x01 << 3usize)) | (((val.to_bits() as u32) & 0x01) << 3usize);
+        pub fn set_wfitowfe(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 3usize)) | (((val as u32) & 0x01) << 3usize);
         }
         #[doc = "SEVONPEND."]
         #[inline(always)]
-        pub const fn sevonpend(&self) -> super::vals::Sevonpend {
+        pub const fn sevonpend(&self) -> bool {
             let val = (self.0 >> 4usize) & 0x01;
-            super::vals::Sevonpend::from_bits(val as u8)
+            val != 0
         }
         #[doc = "SEVONPEND."]
         #[inline(always)]
-        pub fn set_sevonpend(&mut self, val: super::vals::Sevonpend) {
-            self.0 = (self.0 & !(0x01 << 4usize)) | (((val.to_bits() as u32) & 0x01) << 4usize);
+        pub fn set_sevonpend(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u32) & 0x01) << 4usize);
         }
         #[doc = "SETEVENT."]
         #[inline(always)]
-        pub const fn setevent(&self) -> super::vals::Setevent {
+        pub const fn setevent(&self) -> bool {
             let val = (self.0 >> 5usize) & 0x01;
-            super::vals::Setevent::from_bits(val as u8)
+            val != 0
         }
         #[doc = "SETEVENT."]
         #[inline(always)]
-        pub fn set_setevent(&mut self, val: super::vals::Setevent) {
-            self.0 = (self.0 & !(0x01 << 5usize)) | (((val.to_bits() as u32) & 0x01) << 5usize);
+        pub fn set_setevent(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u32) & 0x01) << 5usize);
         }
     }
     impl Default for Sctlr {
@@ -917,154 +917,6 @@ pub mod regs {
     }
 }
 pub mod vals {
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Excreset {
-        _RESERVED_0 = 0x0,
-        #[doc = "Reset the module."]
-        RESET = 0x01,
-    }
-    impl Excreset {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Excreset {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Excreset {
-        #[inline(always)]
-        fn from(val: u8) -> Excreset {
-            Excreset::from_bits(val)
-        }
-    }
-    impl From<Excreset> for u8 {
-        #[inline(always)]
-        fn from(val: Excreset) -> u8 {
-            Excreset::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Excset {
-        _RESERVED_0 = 0x0,
-        #[doc = "Set interrupt."]
-        SET = 0x01,
-    }
-    impl Excset {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Excset {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Excset {
-        #[inline(always)]
-        fn from(val: u8) -> Excset {
-            Excset::from_bits(val)
-        }
-    }
-    impl From<Excset> for u8 {
-        #[inline(always)]
-        fn from(val: Excset) -> u8 {
-            Excset::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Gactsta {
-        #[doc = "No interrupt ongoing."]
-        NOINTERRUPT = 0x0,
-        #[doc = "Interrupt ongoing."]
-        HASINTERRUPT = 0x01,
-    }
-    impl Gactsta {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Gactsta {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Gactsta {
-        #[inline(always)]
-        fn from(val: u8) -> Gactsta {
-            Gactsta::from_bits(val)
-        }
-    }
-    impl From<Gactsta> for u8 {
-        #[inline(always)]
-        fn from(val: Gactsta) -> u8 {
-            Gactsta::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Gpendsta {
-        #[doc = "No interrupt pending."]
-        NOPENDINGINTERRUPT = 0x0,
-        #[doc = "Has interrupt pending."]
-        HASPENDINGINTERRUPT = 0x01,
-    }
-    impl Gpendsta {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Gpendsta {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Gpendsta {
-        #[inline(always)]
-        fn from(val: u8) -> Gpendsta {
-            Gpendsta::from_bits(val)
-        }
-    }
-    impl From<Gpendsta> for u8 {
-        #[inline(always)]
-        fn from(val: Gpendsta) -> u8 {
-            Gpendsta::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Hwstkctrl {
-        #[doc = "Hardware stack enabled."]
-        ENABLED = 0x0,
-        #[doc = "Hardware stack disabled."]
-        DISABLED = 0x01,
-    }
-    impl Hwstkctrl {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Hwstkctrl {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Hwstkctrl {
-        #[inline(always)]
-        fn from(val: u8) -> Hwstkctrl {
-            Hwstkctrl::from_bits(val)
-        }
-    }
-    impl From<Hwstkctrl> for u8 {
-        #[inline(always)]
-        fn from(val: Hwstkctrl) -> u8 {
-            Hwstkctrl::to_bits(val)
-        }
-    }
     #[repr(transparent)]
     #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
     pub struct Keycode(pub u16);
@@ -1094,303 +946,6 @@ pub mod vals {
         #[inline(always)]
         fn from(val: Keycode) -> u16 {
             Keycode::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Nestctrl {
-        #[doc = "Interrupt nesting enabled."]
-        ENABLED = 0x0,
-        #[doc = "Interrupt nesting disabled."]
-        DISABLED = 0x01,
-    }
-    impl Nestctrl {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Nestctrl {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Nestctrl {
-        #[inline(always)]
-        fn from(val: u8) -> Nestctrl {
-            Nestctrl::from_bits(val)
-        }
-    }
-    impl From<Nestctrl> for u8 {
-        #[inline(always)]
-        fn from(val: Nestctrl) -> u8 {
-            Nestctrl::to_bits(val)
-        }
-    }
-    #[repr(transparent)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub struct Neststa(pub u8);
-    impl Neststa {
-        #[doc = "No interrupt ongoing."]
-        pub const NOINTERRUPT: Self = Self(0x0);
-        #[doc = "Primary interrupt ongoing."]
-        pub const PRIMARY: Self = Self(0x01);
-        #[doc = "Secondary interrupt ongoing."]
-        pub const SECONDARY: Self = Self(0x03);
-    }
-    impl Neststa {
-        pub const fn from_bits(val: u8) -> Neststa {
-            Self(val & 0xff)
-        }
-        pub const fn to_bits(self) -> u8 {
-            self.0
-        }
-    }
-    impl From<u8> for Neststa {
-        #[inline(always)]
-        fn from(val: u8) -> Neststa {
-            Neststa::from_bits(val)
-        }
-    }
-    impl From<Neststa> for u8 {
-        #[inline(always)]
-        fn from(val: Neststa) -> u8 {
-            Neststa::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Nmireset {
-        _RESERVED_0 = 0x0,
-        #[doc = "Reset the module."]
-        RESET = 0x01,
-    }
-    impl Nmireset {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Nmireset {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Nmireset {
-        #[inline(always)]
-        fn from(val: u8) -> Nmireset {
-            Nmireset::from_bits(val)
-        }
-    }
-    impl From<Nmireset> for u8 {
-        #[inline(always)]
-        fn from(val: Nmireset) -> u8 {
-            Nmireset::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Nmiset {
-        _RESERVED_0 = 0x0,
-        #[doc = "Set interrupt."]
-        SET = 0x01,
-    }
-    impl Nmiset {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Nmiset {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Nmiset {
-        #[inline(always)]
-        fn from(val: u8) -> Nmiset {
-            Nmiset::from_bits(val)
-        }
-    }
-    impl From<Nmiset> for u8 {
-        #[inline(always)]
-        fn from(val: Nmiset) -> u8 {
-            Nmiset::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Setevent {
-        _RESERVED_0 = 0x0,
-        #[doc = "Set WFE event."]
-        SET = 0x01,
-    }
-    impl Setevent {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Setevent {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Setevent {
-        #[inline(always)]
-        fn from(val: u8) -> Setevent {
-            Setevent::from_bits(val)
-        }
-    }
-    impl From<Setevent> for u8 {
-        #[inline(always)]
-        fn from(val: Setevent) -> u8 {
-            Setevent::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Sevonpend {
-        #[doc = "Only enabled events and interrupts can wake up the system."]
-        ONLYENABLED = 0x0,
-        #[doc = "Enabled events and all interrupts can wake up the system."]
-        ALLINTERRUPTS = 0x01,
-    }
-    impl Sevonpend {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Sevonpend {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Sevonpend {
-        #[inline(always)]
-        fn from(val: u8) -> Sevonpend {
-            Sevonpend::from_bits(val)
-        }
-    }
-    impl From<Sevonpend> for u8 {
-        #[inline(always)]
-        fn from(val: Sevonpend) -> u8 {
-            Sevonpend::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Sleepdeep {
-        #[doc = "Sleep mode."]
-        SLEEP = 0x0,
-        #[doc = "Deep Sleep mode."]
-        DEEPSLEEP = 0x01,
-    }
-    impl Sleepdeep {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Sleepdeep {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Sleepdeep {
-        #[inline(always)]
-        fn from(val: u8) -> Sleepdeep {
-            Sleepdeep::from_bits(val)
-        }
-    }
-    impl From<Sleepdeep> for u8 {
-        #[inline(always)]
-        fn from(val: Sleepdeep) -> u8 {
-            Sleepdeep::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Sleeponexit {
-        #[doc = "Don't sleep after exiting interrupt service."]
-        CONTINUE = 0x0,
-        #[doc = "Enter sleep mode after exiting interrupt service."]
-        SLEEP = 0x01,
-    }
-    impl Sleeponexit {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Sleeponexit {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Sleeponexit {
-        #[inline(always)]
-        fn from(val: u8) -> Sleeponexit {
-            Sleeponexit::from_bits(val)
-        }
-    }
-    impl From<Sleeponexit> for u8 {
-        #[inline(always)]
-        fn from(val: Sleeponexit) -> u8 {
-            Sleeponexit::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Sysreset {
-        _RESERVED_0 = 0x0,
-        #[doc = "Reset the module."]
-        RESET = 0x01,
-    }
-    impl Sysreset {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Sysreset {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Sysreset {
-        #[inline(always)]
-        fn from(val: u8) -> Sysreset {
-            Sysreset::from_bits(val)
-        }
-    }
-    impl From<Sysreset> for u8 {
-        #[inline(always)]
-        fn from(val: Sysreset) -> u8 {
-            Sysreset::to_bits(val)
-        }
-    }
-    #[repr(u8)]
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
-    pub enum Wfitowfe {
-        #[doc = "Nothing."]
-        NORMAL = 0x0,
-        #[doc = "WFI is treated as WFE."]
-        ENABLED = 0x01,
-    }
-    impl Wfitowfe {
-        #[inline(always)]
-        pub const fn from_bits(val: u8) -> Wfitowfe {
-            unsafe { core::mem::transmute(val & 0x01) }
-        }
-        #[inline(always)]
-        pub const fn to_bits(self) -> u8 {
-            unsafe { core::mem::transmute(self) }
-        }
-    }
-    impl From<u8> for Wfitowfe {
-        #[inline(always)]
-        fn from(val: u8) -> Wfitowfe {
-            Wfitowfe::from_bits(val)
-        }
-    }
-    impl From<Wfitowfe> for u8 {
-        #[inline(always)]
-        fn from(val: Wfitowfe) -> u8 {
-            Wfitowfe::to_bits(val)
         }
     }
 }

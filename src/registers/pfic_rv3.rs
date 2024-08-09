@@ -273,7 +273,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 0 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Hwstkctrl"),
+                    enumm: None,
                 },
                 Field {
                     name: "nestctrl",
@@ -281,7 +281,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 1 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Nestctrl"),
+                    enumm: None,
                 },
                 Field {
                     name: "nmiset",
@@ -289,7 +289,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 2 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Nmiset"),
+                    enumm: None,
                 },
                 Field {
                     name: "nmireset",
@@ -297,7 +297,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 3 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Nmireset"),
+                    enumm: None,
                 },
                 Field {
                     name: "excset",
@@ -305,7 +305,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 4 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Excset"),
+                    enumm: None,
                 },
                 Field {
                     name: "excreset",
@@ -313,7 +313,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 5 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Excreset"),
+                    enumm: None,
                 },
                 Field {
                     name: "pficrset",
@@ -329,7 +329,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 7 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Sysreset"),
+                    enumm: None,
                 },
                 Field {
                     name: "keycode",
@@ -463,7 +463,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 0 }),
                     bit_size: 8,
                     array: None,
-                    enumm: Some("Neststa"),
+                    enumm: None,
                 },
                 Field {
                     name: "gactsta",
@@ -471,7 +471,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 8 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Gactsta"),
+                    enumm: None,
                 },
                 Field {
                     name: "gpendsta",
@@ -479,7 +479,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 9 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Gpendsta"),
+                    enumm: None,
                 },
             ],
         },
@@ -745,7 +745,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 1 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Sleeponexit"),
+                    enumm: None,
                 },
                 Field {
                     name: "sleepdeep",
@@ -753,7 +753,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 2 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Sleepdeep"),
+                    enumm: None,
                 },
                 Field {
                     name: "wfitowfe",
@@ -761,7 +761,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 3 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Wfitowfe"),
+                    enumm: None,
                 },
                 Field {
                     name: "sevonpend",
@@ -769,7 +769,7 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 4 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Sevonpend"),
+                    enumm: None,
                 },
                 Field {
                     name: "setevent",
@@ -777,251 +777,31 @@ pub(crate) static REGISTERS: IR = IR {
                     bit_offset: BitOffset::Regular(RegularBitOffset { offset: 5 }),
                     bit_size: 1,
                     array: None,
-                    enumm: Some("Setevent"),
+                    enumm: None,
                 },
             ],
         },
     ],
-    enums: &[
-        Enum {
-            name: "Excreset",
-            description: None,
-            bit_size: 1,
-            variants: &[EnumVariant {
-                name: "RESET",
-                description: Some("Reset the module."),
-                value: 1,
-            }],
-        },
-        Enum {
-            name: "Excset",
-            description: None,
-            bit_size: 1,
-            variants: &[EnumVariant {
-                name: "SET",
-                description: Some("Set interrupt."),
-                value: 1,
-            }],
-        },
-        Enum {
-            name: "Gactsta",
-            description: None,
-            bit_size: 1,
-            variants: &[
-                EnumVariant {
-                    name: "NOINTERRUPT",
-                    description: Some("No interrupt ongoing."),
-                    value: 0,
-                },
-                EnumVariant {
-                    name: "HASINTERRUPT",
-                    description: Some("Interrupt ongoing."),
-                    value: 1,
-                },
-            ],
-        },
-        Enum {
-            name: "Gpendsta",
-            description: None,
-            bit_size: 1,
-            variants: &[
-                EnumVariant {
-                    name: "NOPENDINGINTERRUPT",
-                    description: Some("No interrupt pending."),
-                    value: 0,
-                },
-                EnumVariant {
-                    name: "HASPENDINGINTERRUPT",
-                    description: Some("Has interrupt pending."),
-                    value: 1,
-                },
-            ],
-        },
-        Enum {
-            name: "Hwstkctrl",
-            description: None,
-            bit_size: 1,
-            variants: &[
-                EnumVariant {
-                    name: "ENABLED",
-                    description: Some("Hardware stack enabled."),
-                    value: 0,
-                },
-                EnumVariant {
-                    name: "DISABLED",
-                    description: Some("Hardware stack disabled."),
-                    value: 1,
-                },
-            ],
-        },
-        Enum {
-            name: "Keycode",
-            description: None,
-            bit_size: 16,
-            variants: &[
-                EnumVariant {
-                    name: "KEY2",
-                    description: Some("NMI and EXC key."),
-                    value: 48303,
-                },
-                EnumVariant {
-                    name: "KEY3",
-                    description: Some("System Reset key."),
-                    value: 48879,
-                },
-                EnumVariant {
-                    name: "KEY1",
-                    description: Some("HWSTK and NEST key."),
-                    value: 64005,
-                },
-            ],
-        },
-        Enum {
-            name: "Nestctrl",
-            description: None,
-            bit_size: 1,
-            variants: &[
-                EnumVariant {
-                    name: "ENABLED",
-                    description: Some("Interrupt nesting enabled."),
-                    value: 0,
-                },
-                EnumVariant {
-                    name: "DISABLED",
-                    description: Some("Interrupt nesting disabled."),
-                    value: 1,
-                },
-            ],
-        },
-        Enum {
-            name: "Neststa",
-            description: None,
-            bit_size: 8,
-            variants: &[
-                EnumVariant {
-                    name: "NOINTERRUPT",
-                    description: Some("No interrupt ongoing."),
-                    value: 0,
-                },
-                EnumVariant {
-                    name: "PRIMARY",
-                    description: Some("Primary interrupt ongoing."),
-                    value: 1,
-                },
-                EnumVariant {
-                    name: "SECONDARY",
-                    description: Some("Secondary interrupt ongoing."),
-                    value: 3,
-                },
-            ],
-        },
-        Enum {
-            name: "Nmireset",
-            description: None,
-            bit_size: 1,
-            variants: &[EnumVariant {
-                name: "RESET",
-                description: Some("Reset the module."),
-                value: 1,
-            }],
-        },
-        Enum {
-            name: "Nmiset",
-            description: None,
-            bit_size: 1,
-            variants: &[EnumVariant {
-                name: "SET",
-                description: Some("Set interrupt."),
-                value: 1,
-            }],
-        },
-        Enum {
-            name: "Setevent",
-            description: None,
-            bit_size: 1,
-            variants: &[EnumVariant {
-                name: "SET",
-                description: Some("Set WFE event."),
-                value: 1,
-            }],
-        },
-        Enum {
-            name: "Sevonpend",
-            description: None,
-            bit_size: 1,
-            variants: &[
-                EnumVariant {
-                    name: "ONLYENABLED",
-                    description: Some("Only enabled events and interrupts can wake up the system."),
-                    value: 0,
-                },
-                EnumVariant {
-                    name: "ALLINTERRUPTS",
-                    description: Some("Enabled events and all interrupts can wake up the system."),
-                    value: 1,
-                },
-            ],
-        },
-        Enum {
-            name: "Sleepdeep",
-            description: None,
-            bit_size: 1,
-            variants: &[
-                EnumVariant {
-                    name: "SLEEP",
-                    description: Some("Sleep mode."),
-                    value: 0,
-                },
-                EnumVariant {
-                    name: "DEEPSLEEP",
-                    description: Some("Deep Sleep mode."),
-                    value: 1,
-                },
-            ],
-        },
-        Enum {
-            name: "Sleeponexit",
-            description: None,
-            bit_size: 1,
-            variants: &[
-                EnumVariant {
-                    name: "CONTINUE",
-                    description: Some("Don't sleep after exiting interrupt service."),
-                    value: 0,
-                },
-                EnumVariant {
-                    name: "SLEEP",
-                    description: Some("Enter sleep mode after exiting interrupt service."),
-                    value: 1,
-                },
-            ],
-        },
-        Enum {
-            name: "Sysreset",
-            description: None,
-            bit_size: 1,
-            variants: &[EnumVariant {
-                name: "RESET",
-                description: Some("Reset the module."),
-                value: 1,
-            }],
-        },
-        Enum {
-            name: "Wfitowfe",
-            description: None,
-            bit_size: 1,
-            variants: &[
-                EnumVariant {
-                    name: "NORMAL",
-                    description: Some("Nothing."),
-                    value: 0,
-                },
-                EnumVariant {
-                    name: "ENABLED",
-                    description: Some("WFI is treated as WFE."),
-                    value: 1,
-                },
-            ],
-        },
-    ],
+    enums: &[Enum {
+        name: "Keycode",
+        description: None,
+        bit_size: 16,
+        variants: &[
+            EnumVariant {
+                name: "KEY2",
+                description: Some("NMI and EXC key."),
+                value: 48303,
+            },
+            EnumVariant {
+                name: "KEY3",
+                description: Some("System Reset key."),
+                value: 48879,
+            },
+            EnumVariant {
+                name: "KEY1",
+                description: Some("HWSTK and NEST key."),
+                value: 64005,
+            },
+        ],
+    }],
 };

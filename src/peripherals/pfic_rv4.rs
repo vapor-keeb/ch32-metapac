@@ -230,14 +230,15 @@ pub mod regs {
         }
         #[doc = "KEYCODE."]
         #[inline(always)]
-        pub const fn keycode(&self) -> u16 {
+        pub const fn keycode(&self) -> super::vals::Keycode {
             let val = (self.0 >> 16usize) & 0xffff;
-            val as u16
+            super::vals::Keycode::from_bits(val as u16)
         }
         #[doc = "KEYCODE."]
         #[inline(always)]
-        pub fn set_keycode(&mut self, val: u16) {
-            self.0 = (self.0 & !(0xffff << 16usize)) | (((val as u32) & 0xffff) << 16usize);
+        pub fn set_keycode(&mut self, val: super::vals::Keycode) {
+            self.0 =
+                (self.0 & !(0xffff << 16usize)) | (((val.to_bits() as u32) & 0xffff) << 16usize);
         }
     }
     impl Default for Cfgr {
@@ -1341,6 +1342,39 @@ pub mod regs {
         #[inline(always)]
         fn default() -> Vtfidr {
             Vtfidr(0)
+        }
+    }
+}
+pub mod vals {
+    #[repr(transparent)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub struct Keycode(pub u16);
+    impl Keycode {
+        #[doc = "NMI and EXC key."]
+        pub const KEY2: Self = Self(0xbcaf);
+        #[doc = "System Reset key."]
+        pub const KEY3: Self = Self(0xbeef);
+        #[doc = "HWSTK and NEST key."]
+        pub const KEY1: Self = Self(0xfa05);
+    }
+    impl Keycode {
+        pub const fn from_bits(val: u16) -> Keycode {
+            Self(val & 0xffff)
+        }
+        pub const fn to_bits(self) -> u16 {
+            self.0
+        }
+    }
+    impl From<u16> for Keycode {
+        #[inline(always)]
+        fn from(val: u16) -> Keycode {
+            Keycode::from_bits(val)
+        }
+    }
+    impl From<Keycode> for u16 {
+        #[inline(always)]
+        fn from(val: Keycode) -> u16 {
+            Keycode::to_bits(val)
         }
     }
 }
