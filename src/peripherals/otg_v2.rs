@@ -472,14 +472,14 @@ pub mod regs {
     impl UepRxCtrl {
         #[doc = "bit mask of handshake response type for USB endpoint X receiving (OUT)."]
         #[inline(always)]
-        pub const fn mask_r_res(&self) -> u8 {
+        pub const fn mask_r_res(&self) -> super::vals::EpRxResponse {
             let val = (self.0 >> 0usize) & 0x03;
-            val as u8
+            super::vals::EpRxResponse::from_bits(val as u8)
         }
         #[doc = "bit mask of handshake response type for USB endpoint X receiving (OUT)."]
         #[inline(always)]
-        pub fn set_mask_r_res(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 0usize)) | (((val as u8) & 0x03) << 0usize);
+        pub fn set_mask_r_res(&mut self, val: super::vals::EpRxResponse) {
+            self.0 = (self.0 & !(0x03 << 0usize)) | (((val.to_bits() as u8) & 0x03) << 0usize);
         }
         #[doc = "expected data toggle flag of USB endpoint X receiving (OUT): 0=DATA0, 1=DATA1."]
         #[inline(always)]
@@ -517,14 +517,14 @@ pub mod regs {
     impl UepTxCtrl {
         #[doc = "bit mask of handshake response type for USB endpoint X transmittal (IN)."]
         #[inline(always)]
-        pub const fn mask_t_res(&self) -> u8 {
+        pub const fn mask_t_res(&self) -> super::vals::EpTxResponse {
             let val = (self.0 >> 0usize) & 0x03;
-            val as u8
+            super::vals::EpTxResponse::from_bits(val as u8)
         }
         #[doc = "bit mask of handshake response type for USB endpoint X transmittal (IN)."]
         #[inline(always)]
-        pub fn set_mask_t_res(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 0usize)) | (((val as u8) & 0x03) << 0usize);
+        pub fn set_mask_t_res(&mut self, val: super::vals::EpTxResponse) {
+            self.0 = (self.0 & !(0x03 << 0usize)) | (((val.to_bits() as u8) & 0x03) << 0usize);
         }
         #[doc = "prepared data toggle flag of USB endpoint X transmittal (IN): 0=DATA0, 1=DATA1."]
         #[inline(always)]
@@ -1036,17 +1036,6 @@ pub mod regs {
         pub fn set_dev_nak(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 6usize)) | (((val as u8) & 0x01) << 6usize);
         }
-        #[doc = "enable interrupt for SOF received for USB device mode."]
-        #[inline(always)]
-        pub const fn dev_sof(&self) -> bool {
-            let val = (self.0 >> 7usize) & 0x01;
-            val != 0
-        }
-        #[doc = "enable interrupt for SOF received for USB device mode."]
-        #[inline(always)]
-        pub fn set_dev_sof(&mut self, val: bool) {
-            self.0 = (self.0 & !(0x01 << 7usize)) | (((val as u8) & 0x01) << 7usize);
-        }
     }
     impl Default for UsbIntEn {
         #[inline(always)]
@@ -1487,6 +1476,76 @@ pub mod regs {
         #[inline(always)]
         fn default() -> UsbRxLen {
             UsbRxLen(0)
+        }
+    }
+}
+pub mod vals {
+    #[repr(u8)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub enum EpRxResponse {
+        #[doc = "Respond with ACK"]
+        ACK = 0x0,
+        #[doc = "Timeout / No Response, used for non-EP0 iso/sync transfer"]
+        NONE = 0x01,
+        #[doc = "Respond with NAK or Busy"]
+        NAK = 0x02,
+        #[doc = "Respond with STALL or Error"]
+        STALL = 0x03,
+    }
+    impl EpRxResponse {
+        #[inline(always)]
+        pub const fn from_bits(val: u8) -> EpRxResponse {
+            unsafe { core::mem::transmute(val & 0x03) }
+        }
+        #[inline(always)]
+        pub const fn to_bits(self) -> u8 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl From<u8> for EpRxResponse {
+        #[inline(always)]
+        fn from(val: u8) -> EpRxResponse {
+            EpRxResponse::from_bits(val)
+        }
+    }
+    impl From<EpRxResponse> for u8 {
+        #[inline(always)]
+        fn from(val: EpRxResponse) -> u8 {
+            EpRxResponse::to_bits(val)
+        }
+    }
+    #[repr(u8)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub enum EpTxResponse {
+        #[doc = "Respond with DATA0/DATA1 and expect ACK"]
+        ACK = 0x0,
+        #[doc = "Respond with DATA0/DATA1 and not expect ACK"]
+        NONE = 0x01,
+        #[doc = "Respond with NAK or Busy"]
+        NAK = 0x02,
+        #[doc = "Respond with STALL or Error"]
+        STALL = 0x03,
+    }
+    impl EpTxResponse {
+        #[inline(always)]
+        pub const fn from_bits(val: u8) -> EpTxResponse {
+            unsafe { core::mem::transmute(val & 0x03) }
+        }
+        #[inline(always)]
+        pub const fn to_bits(self) -> u8 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl From<u8> for EpTxResponse {
+        #[inline(always)]
+        fn from(val: u8) -> EpTxResponse {
+            EpTxResponse::from_bits(val)
+        }
+    }
+    impl From<EpTxResponse> for u8 {
+        #[inline(always)]
+        fn from(val: EpTxResponse) -> u8 {
+            EpTxResponse::to_bits(val)
         }
     }
 }

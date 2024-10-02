@@ -1041,7 +1041,9 @@ pub(crate) static REGISTERS: IR = IR {
                     ),
                     bit_size: 2,
                     array: None,
-                    enumm: None,
+                    enumm: Some(
+                        "EpRxResponse",
+                    ),
                 },
                 Field {
                     name: "r_tog",
@@ -1093,7 +1095,9 @@ pub(crate) static REGISTERS: IR = IR {
                     ),
                     bit_size: 2,
                     array: None,
-                    enumm: None,
+                    enumm: Some(
+                        "EpTxResponse",
+                    ),
                 },
                 Field {
                     name: "t_tog",
@@ -1701,20 +1705,6 @@ pub(crate) static REGISTERS: IR = IR {
                     array: None,
                     enumm: None,
                 },
-                Field {
-                    name: "dev_sof",
-                    description: Some(
-                        "enable interrupt for SOF received for USB device mode.",
-                    ),
-                    bit_offset: BitOffset::Regular(
-                        RegularBitOffset {
-                            offset: 7,
-                        },
-                    ),
-                    bit_size: 1,
-                    array: None,
-                    enumm: None,
-                },
             ],
         },
         FieldSet {
@@ -2240,5 +2230,76 @@ pub(crate) static REGISTERS: IR = IR {
             ],
         },
     ],
-    enums: &[],
+    enums: &[
+        Enum {
+            name: "EpRxResponse",
+            description: None,
+            bit_size: 2,
+            variants: &[
+                EnumVariant {
+                    name: "ACK",
+                    description: Some(
+                        "Respond with ACK",
+                    ),
+                    value: 0,
+                },
+                EnumVariant {
+                    name: "NONE",
+                    description: Some(
+                        "Timeout / No Response, used for non-EP0 iso/sync transfer",
+                    ),
+                    value: 1,
+                },
+                EnumVariant {
+                    name: "NAK",
+                    description: Some(
+                        "Respond with NAK or Busy",
+                    ),
+                    value: 2,
+                },
+                EnumVariant {
+                    name: "STALL",
+                    description: Some(
+                        "Respond with STALL or Error",
+                    ),
+                    value: 3,
+                },
+            ],
+        },
+        Enum {
+            name: "EpTxResponse",
+            description: None,
+            bit_size: 2,
+            variants: &[
+                EnumVariant {
+                    name: "ACK",
+                    description: Some(
+                        "Respond with DATA0/DATA1 and expect ACK",
+                    ),
+                    value: 0,
+                },
+                EnumVariant {
+                    name: "NONE",
+                    description: Some(
+                        "Respond with DATA0/DATA1 and not expect ACK",
+                    ),
+                    value: 1,
+                },
+                EnumVariant {
+                    name: "NAK",
+                    description: Some(
+                        "Respond with NAK or Busy",
+                    ),
+                    value: 2,
+                },
+                EnumVariant {
+                    name: "STALL",
+                    description: Some(
+                        "Respond with STALL or Error",
+                    ),
+                    value: 3,
+                },
+            ],
+        },
+    ],
 };
