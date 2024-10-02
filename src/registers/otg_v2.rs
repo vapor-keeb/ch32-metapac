@@ -1891,7 +1891,9 @@ pub(crate) static REGISTERS: IR = IR {
                     ),
                     bit_size: 2,
                     array: None,
-                    enumm: None,
+                    enumm: Some(
+                        "UsbToken",
+                    ),
                 },
                 Field {
                     name: "tog_ok",
@@ -2296,6 +2298,41 @@ pub(crate) static REGISTERS: IR = IR {
                     name: "STALL",
                     description: Some(
                         "Respond with STALL or Error",
+                    ),
+                    value: 3,
+                },
+            ],
+        },
+        Enum {
+            name: "UsbToken",
+            description: None,
+            bit_size: 2,
+            variants: &[
+                EnumVariant {
+                    name: "OUT",
+                    description: Some(
+                        "OUT Packet",
+                    ),
+                    value: 0,
+                },
+                EnumVariant {
+                    name: "RSVD",
+                    description: Some(
+                        "Reserved",
+                    ),
+                    value: 1,
+                },
+                EnumVariant {
+                    name: "IN",
+                    description: Some(
+                        "IN Packet",
+                    ),
+                    value: 2,
+                },
+                EnumVariant {
+                    name: "SETUP",
+                    description: Some(
+                        "Setup Packet",
                     ),
                     value: 3,
                 },

@@ -1183,14 +1183,14 @@ pub mod regs {
         }
         #[doc = "RO, bit mask of current token PID code received for USB device mode."]
         #[inline(always)]
-        pub const fn mask_token(&self) -> u8 {
+        pub const fn mask_token(&self) -> super::vals::UsbToken {
             let val = (self.0 >> 4usize) & 0x03;
-            val as u8
+            super::vals::UsbToken::from_bits(val as u8)
         }
         #[doc = "RO, bit mask of current token PID code received for USB device mode."]
         #[inline(always)]
-        pub fn set_mask_token(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 4usize)) | (((val as u8) & 0x03) << 4usize);
+        pub fn set_mask_token(&mut self, val: super::vals::UsbToken) {
+            self.0 = (self.0 & !(0x03 << 4usize)) | (((val.to_bits() as u8) & 0x03) << 4usize);
         }
         #[doc = "RO, indicate current USB transfer toggle is OK."]
         #[inline(always)]
@@ -1546,6 +1546,40 @@ pub mod vals {
         #[inline(always)]
         fn from(val: EpTxResponse) -> u8 {
             EpTxResponse::to_bits(val)
+        }
+    }
+    #[repr(u8)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub enum UsbToken {
+        #[doc = "OUT Packet"]
+        OUT = 0x0,
+        #[doc = "Reserved"]
+        RSVD = 0x01,
+        #[doc = "IN Packet"]
+        IN = 0x02,
+        #[doc = "Setup Packet"]
+        SETUP = 0x03,
+    }
+    impl UsbToken {
+        #[inline(always)]
+        pub const fn from_bits(val: u8) -> UsbToken {
+            unsafe { core::mem::transmute(val & 0x03) }
+        }
+        #[inline(always)]
+        pub const fn to_bits(self) -> u8 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl From<u8> for UsbToken {
+        #[inline(always)]
+        fn from(val: u8) -> UsbToken {
+            UsbToken::from_bits(val)
+        }
+    }
+    impl From<UsbToken> for u8 {
+        #[inline(always)]
+        fn from(val: UsbToken) -> u8 {
+            UsbToken::to_bits(val)
         }
     }
 }
