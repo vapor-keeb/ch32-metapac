@@ -379,14 +379,14 @@ pub mod regs {
         }
         #[doc = "enable USB low speed: 00=full speed, 01=high speed, 10 =low speed."]
         #[inline(always)]
-        pub const fn speed_type(&self) -> u8 {
+        pub const fn speed_type(&self) -> super::vals::SpeedType {
             let val = (self.0 >> 5usize) & 0x03;
-            val as u8
+            super::vals::SpeedType::from_bits(val as u8)
         }
         #[doc = "enable USB low speed: 00=full speed, 01=high speed, 10 =low speed."]
         #[inline(always)]
-        pub fn set_speed_type(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 5usize)) | (((val as u8) & 0x03) << 5usize);
+        pub fn set_speed_type(&mut self, val: super::vals::SpeedType) {
+            self.0 = (self.0 & !(0x03 << 5usize)) | (((val.to_bits() as u8) & 0x03) << 5usize);
         }
         #[doc = "enable USB host mode: 0=device mode, 1=host mode."]
         #[inline(always)]
@@ -566,25 +566,25 @@ pub mod regs {
     impl EpRxCtrl {
         #[doc = "MASK_UEP_R_RES"]
         #[inline(always)]
-        pub const fn mask_uep_r_res(&self) -> u8 {
+        pub const fn mask_uep_r_res(&self) -> super::vals::EpRxResponse {
             let val = (self.0 >> 0usize) & 0x03;
-            val as u8
+            super::vals::EpRxResponse::from_bits(val as u8)
         }
         #[doc = "MASK_UEP_R_RES"]
         #[inline(always)]
-        pub fn set_mask_uep_r_res(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 0usize)) | (((val as u8) & 0x03) << 0usize);
+        pub fn set_mask_uep_r_res(&mut self, val: super::vals::EpRxResponse) {
+            self.0 = (self.0 & !(0x03 << 0usize)) | (((val.to_bits() as u8) & 0x03) << 0usize);
         }
         #[doc = "MASK_UEP_R_TOG"]
         #[inline(always)]
-        pub const fn mask_uep_r_tog(&self) -> u8 {
+        pub const fn mask_uep_r_tog(&self) -> super::vals::EpTog {
             let val = (self.0 >> 3usize) & 0x03;
-            val as u8
+            super::vals::EpTog::from_bits(val as u8)
         }
         #[doc = "MASK_UEP_R_TOG"]
         #[inline(always)]
-        pub fn set_mask_uep_r_tog(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 3usize)) | (((val as u8) & 0x03) << 3usize);
+        pub fn set_mask_uep_r_tog(&mut self, val: super::vals::EpTog) {
+            self.0 = (self.0 & !(0x03 << 3usize)) | (((val.to_bits() as u8) & 0x03) << 3usize);
         }
         #[doc = "endpoint n synchronous trigger bit automatic filp enables the control bit."]
         #[inline(always)]
@@ -611,25 +611,25 @@ pub mod regs {
     impl EpTxCtrl {
         #[doc = "MASK_UEP_T_RES"]
         #[inline(always)]
-        pub const fn mask_uep_t_res(&self) -> u8 {
+        pub const fn mask_uep_t_res(&self) -> super::vals::EpTxResponse {
             let val = (self.0 >> 0usize) & 0x03;
-            val as u8
+            super::vals::EpTxResponse::from_bits(val as u8)
         }
         #[doc = "MASK_UEP_T_RES"]
         #[inline(always)]
-        pub fn set_mask_uep_t_res(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 0usize)) | (((val as u8) & 0x03) << 0usize);
+        pub fn set_mask_uep_t_res(&mut self, val: super::vals::EpTxResponse) {
+            self.0 = (self.0 & !(0x03 << 0usize)) | (((val.to_bits() as u8) & 0x03) << 0usize);
         }
         #[doc = "MASK_UEP_T_TOG"]
         #[inline(always)]
-        pub const fn mask_uep_t_tog(&self) -> u8 {
+        pub const fn mask_uep_t_tog(&self) -> super::vals::EpTog {
             let val = (self.0 >> 3usize) & 0x03;
-            val as u8
+            super::vals::EpTog::from_bits(val as u8)
         }
         #[doc = "MASK_UEP_T_TOG"]
         #[inline(always)]
-        pub fn set_mask_uep_t_tog(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 3usize)) | (((val as u8) & 0x03) << 3usize);
+        pub fn set_mask_uep_t_tog(&mut self, val: super::vals::EpTog) {
+            self.0 = (self.0 & !(0x03 << 3usize)) | (((val.to_bits() as u8) & 0x03) << 3usize);
         }
         #[doc = "endpoint n synchronous trigger bit automatic filp enables the control bit."]
         #[inline(always)]
@@ -656,33 +656,33 @@ pub mod regs {
     impl EpType {
         #[doc = "Endpoint 1 to 15 transmit type, 1 means synchronous transmission"]
         #[inline(always)]
-        pub const fn t_type(&self, n: usize) -> bool {
+        pub const fn t_type(&self, n: usize) -> super::vals::EndpointType {
             assert!(n < 15usize);
             let offs = 1usize + n * 1usize;
             let val = (self.0 >> offs) & 0x01;
-            val != 0
+            super::vals::EndpointType::from_bits(val as u8)
         }
         #[doc = "Endpoint 1 to 15 transmit type, 1 means synchronous transmission"]
         #[inline(always)]
-        pub fn set_t_type(&mut self, n: usize, val: bool) {
+        pub fn set_t_type(&mut self, n: usize, val: super::vals::EndpointType) {
             assert!(n < 15usize);
             let offs = 1usize + n * 1usize;
-            self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
+            self.0 = (self.0 & !(0x01 << offs)) | (((val.to_bits() as u32) & 0x01) << offs);
         }
         #[doc = "Endpoint 1 to 15 receive type, 1 means synchronous transmission"]
         #[inline(always)]
-        pub const fn r_type(&self, n: usize) -> bool {
+        pub const fn r_type(&self, n: usize) -> super::vals::EndpointType {
             assert!(n < 15usize);
             let offs = 17usize + n * 1usize;
             let val = (self.0 >> offs) & 0x01;
-            val != 0
+            super::vals::EndpointType::from_bits(val as u8)
         }
         #[doc = "Endpoint 1 to 15 receive type, 1 means synchronous transmission"]
         #[inline(always)]
-        pub fn set_r_type(&mut self, n: usize, val: bool) {
+        pub fn set_r_type(&mut self, n: usize, val: super::vals::EndpointType) {
             assert!(n < 15usize);
             let offs = 17usize + n * 1usize;
-            self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
+            self.0 = (self.0 & !(0x01 << offs)) | (((val.to_bits() as u32) & 0x01) << offs);
         }
     }
     impl Default for EpType {
@@ -965,14 +965,14 @@ pub mod regs {
         }
         #[doc = "RO, bit mask of current token PID code received for USB device mode."]
         #[inline(always)]
-        pub const fn token(&self) -> u8 {
+        pub const fn token(&self) -> super::vals::UsbToken {
             let val = (self.0 >> 4usize) & 0x03;
-            val as u8
+            super::vals::UsbToken::from_bits(val as u8)
         }
         #[doc = "RO, bit mask of current token PID code received for USB device mode."]
         #[inline(always)]
-        pub fn set_token(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 4usize)) | (((val as u8) & 0x03) << 4usize);
+        pub fn set_token(&mut self, val: super::vals::UsbToken) {
+            self.0 = (self.0 & !(0x03 << 4usize)) | (((val.to_bits() as u8) & 0x03) << 4usize);
         }
         #[doc = "RO, indicate current USB transfer toggle is OK."]
         #[inline(always)]
@@ -1110,14 +1110,14 @@ pub mod regs {
     impl SpeedType {
         #[doc = "in host mode, it indicates the speed type of the currently connected device; in device mode, it indicates the speed type of the current device."]
         #[inline(always)]
-        pub const fn speed_type(&self) -> u8 {
+        pub const fn speed_type(&self) -> super::vals::SpeedType {
             let val = (self.0 >> 0usize) & 0x03;
-            val as u8
+            super::vals::SpeedType::from_bits(val as u8)
         }
         #[doc = "in host mode, it indicates the speed type of the currently connected device; in device mode, it indicates the speed type of the current device."]
         #[inline(always)]
-        pub fn set_speed_type(&mut self, val: u8) {
-            self.0 = (self.0 & !(0x03 << 0usize)) | (((val as u8) & 0x03) << 0usize);
+        pub fn set_speed_type(&mut self, val: super::vals::SpeedType) {
+            self.0 = (self.0 & !(0x03 << 0usize)) | (((val.to_bits() as u8) & 0x03) << 0usize);
         }
     }
     impl Default for SpeedType {
@@ -1517,6 +1517,202 @@ pub mod regs {
         #[inline(always)]
         fn default() -> UhTxCtrl {
             UhTxCtrl(0)
+        }
+    }
+}
+pub mod vals {
+    #[repr(u8)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub enum EndpointType {
+        #[doc = "Non Isochronous (Interrupt/Bulk)"]
+        NISO = 0x0,
+        #[doc = "Isochronous Transfer"]
+        ISO = 0x01,
+    }
+    impl EndpointType {
+        #[inline(always)]
+        pub const fn from_bits(val: u8) -> EndpointType {
+            unsafe { core::mem::transmute(val & 0x01) }
+        }
+        #[inline(always)]
+        pub const fn to_bits(self) -> u8 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl From<u8> for EndpointType {
+        #[inline(always)]
+        fn from(val: u8) -> EndpointType {
+            EndpointType::from_bits(val)
+        }
+    }
+    impl From<EndpointType> for u8 {
+        #[inline(always)]
+        fn from(val: EndpointType) -> u8 {
+            EndpointType::to_bits(val)
+        }
+    }
+    #[repr(u8)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub enum EpRxResponse {
+        #[doc = "Respond with ACK"]
+        ACK = 0x0,
+        #[doc = "Respond NYET"]
+        NYET = 0x01,
+        #[doc = "Respond with NAK(Busy)"]
+        NAK = 0x02,
+        #[doc = "Respond with STALL(Error)"]
+        STALL = 0x03,
+    }
+    impl EpRxResponse {
+        #[inline(always)]
+        pub const fn from_bits(val: u8) -> EpRxResponse {
+            unsafe { core::mem::transmute(val & 0x03) }
+        }
+        #[inline(always)]
+        pub const fn to_bits(self) -> u8 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl From<u8> for EpRxResponse {
+        #[inline(always)]
+        fn from(val: u8) -> EpRxResponse {
+            EpRxResponse::from_bits(val)
+        }
+    }
+    impl From<EpRxResponse> for u8 {
+        #[inline(always)]
+        fn from(val: EpRxResponse) -> u8 {
+            EpRxResponse::to_bits(val)
+        }
+    }
+    #[repr(u8)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub enum EpTog {
+        DATA0 = 0x0,
+        DATA1 = 0x01,
+        DATA2 = 0x02,
+        MDATA = 0x03,
+    }
+    impl EpTog {
+        #[inline(always)]
+        pub const fn from_bits(val: u8) -> EpTog {
+            unsafe { core::mem::transmute(val & 0x03) }
+        }
+        #[inline(always)]
+        pub const fn to_bits(self) -> u8 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl From<u8> for EpTog {
+        #[inline(always)]
+        fn from(val: u8) -> EpTog {
+            EpTog::from_bits(val)
+        }
+    }
+    impl From<EpTog> for u8 {
+        #[inline(always)]
+        fn from(val: EpTog) -> u8 {
+            EpTog::to_bits(val)
+        }
+    }
+    #[repr(u8)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub enum EpTxResponse {
+        #[doc = "Respond with DATA0/DATA1 and expect ACK"]
+        ACK = 0x0,
+        _RESERVED_1 = 0x01,
+        #[doc = "Respond with NAK or Busy"]
+        NAK = 0x02,
+        #[doc = "Respond with STALL or Error"]
+        STALL = 0x03,
+    }
+    impl EpTxResponse {
+        #[inline(always)]
+        pub const fn from_bits(val: u8) -> EpTxResponse {
+            unsafe { core::mem::transmute(val & 0x03) }
+        }
+        #[inline(always)]
+        pub const fn to_bits(self) -> u8 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl From<u8> for EpTxResponse {
+        #[inline(always)]
+        fn from(val: u8) -> EpTxResponse {
+            EpTxResponse::from_bits(val)
+        }
+    }
+    impl From<EpTxResponse> for u8 {
+        #[inline(always)]
+        fn from(val: EpTxResponse) -> u8 {
+            EpTxResponse::to_bits(val)
+        }
+    }
+    #[repr(u8)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub enum SpeedType {
+        #[doc = "USB Low Speed (1.5Mbps)"]
+        LOWSPEED = 0x0,
+        #[doc = "USB Full Speed (12Mbps)"]
+        FULLSPEED = 0x01,
+        #[doc = "USB High Speed (480Mbps)"]
+        HIGHSPEED = 0x02,
+        _RESERVED_3 = 0x03,
+    }
+    impl SpeedType {
+        #[inline(always)]
+        pub const fn from_bits(val: u8) -> SpeedType {
+            unsafe { core::mem::transmute(val & 0x03) }
+        }
+        #[inline(always)]
+        pub const fn to_bits(self) -> u8 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl From<u8> for SpeedType {
+        #[inline(always)]
+        fn from(val: u8) -> SpeedType {
+            SpeedType::from_bits(val)
+        }
+    }
+    impl From<SpeedType> for u8 {
+        #[inline(always)]
+        fn from(val: SpeedType) -> u8 {
+            SpeedType::to_bits(val)
+        }
+    }
+    #[repr(u8)]
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
+    pub enum UsbToken {
+        #[doc = "OUT Packet"]
+        OUT = 0x0,
+        #[doc = "Start of Frame"]
+        SOF = 0x01,
+        #[doc = "IN Packet"]
+        IN = 0x02,
+        #[doc = "SETUP Packet"]
+        SETUP = 0x03,
+    }
+    impl UsbToken {
+        #[inline(always)]
+        pub const fn from_bits(val: u8) -> UsbToken {
+            unsafe { core::mem::transmute(val & 0x03) }
+        }
+        #[inline(always)]
+        pub const fn to_bits(self) -> u8 {
+            unsafe { core::mem::transmute(self) }
+        }
+    }
+    impl From<u8> for UsbToken {
+        #[inline(always)]
+        fn from(val: u8) -> UsbToken {
+            UsbToken::from_bits(val)
+        }
+    }
+    impl From<UsbToken> for u8 {
+        #[inline(always)]
+        fn from(val: UsbToken) -> u8 {
+            UsbToken::to_bits(val)
         }
     }
 }
