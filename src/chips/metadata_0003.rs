@@ -1,3 +1,4 @@
+
 pub(crate) static PERIPHERALS: &[Peripheral] = &[
     Peripheral {
         name: "PFIC",
