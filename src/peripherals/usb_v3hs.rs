@@ -1651,12 +1651,12 @@ pub mod vals {
     #[repr(u8)]
     #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
     pub enum SpeedType {
-        #[doc = "USB Low Speed (1.5Mbps)"]
-        LOWSPEED = 0x0,
         #[doc = "USB Full Speed (12Mbps)"]
-        FULLSPEED = 0x01,
+        FULLSPEED = 0x0,
         #[doc = "USB High Speed (480Mbps)"]
-        HIGHSPEED = 0x02,
+        HIGHSPEED = 0x01,
+        #[doc = "USB Low Speed (1.5Mbps)"]
+        LOWSPEED = 0x02,
         _RESERVED_3 = 0x03,
     }
     impl SpeedType {

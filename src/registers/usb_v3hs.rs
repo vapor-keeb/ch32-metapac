@@ -2477,23 +2477,23 @@ pub(crate) static REGISTERS: IR = IR {
             bit_size: 2,
             variants: &[
                 EnumVariant {
-                    name: "LOWSPEED",
-                    description: Some(
-                        "USB Low Speed (1.5Mbps)",
-                    ),
-                    value: 0,
-                },
-                EnumVariant {
                     name: "FULLSPEED",
                     description: Some(
                         "USB Full Speed (12Mbps)",
                     ),
-                    value: 1,
+                    value: 0,
                 },
                 EnumVariant {
                     name: "HIGHSPEED",
                     description: Some(
                         "USB High Speed (480Mbps)",
+                    ),
+                    value: 1,
+                },
+                EnumVariant {
+                    name: "LOWSPEED",
+                    description: Some(
+                        "USB Low Speed (1.5Mbps)",
                     ),
                     value: 2,
                 },
