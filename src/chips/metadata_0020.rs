@@ -3396,10 +3396,10 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
         name: "USBHS",
         address: 0x40023400,
         registers: Some(PeripheralRegisters {
-            kind: "usb",
-            version: "v3hs",
+            kind: "usbhs",
+            version: "v3",
             block: "USB",
-            ir: &usb::REGISTERS,
+            ir: &usbhs::REGISTERS,
         }),
         rcc: Some(PeripheralRcc {
             bus_clock: "HCLK",
@@ -4295,5 +4295,5 @@ pub mod systick;
 pub mod timer;
 #[path = "../registers/usart_common.rs"]
 pub mod usart;
-#[path = "../registers/usb_v3hs.rs"]
-pub mod usb;
+#[path = "../registers/usbhs_v3.rs"]
+pub mod usbhs;

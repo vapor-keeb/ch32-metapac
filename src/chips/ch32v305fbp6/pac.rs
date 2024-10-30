@@ -452,7 +452,7 @@ pub const DMA1: dma::Dma = unsafe { dma::Dma::from_ptr(0x4002_0000usize as _) };
 pub const DMA2: dma::Dma = unsafe { dma::Dma::from_ptr(0x4002_0400usize as _) };
 pub const RCC: rcc::Rcc = unsafe { rcc::Rcc::from_ptr(0x4002_1000usize as _) };
 pub const FLASH: flash::Flash = unsafe { flash::Flash::from_ptr(0x4002_2000usize as _) };
-pub const USBHS: usb::Usb = unsafe { usb::Usb::from_ptr(0x4002_3400usize as _) };
+pub const USBHS: usbhs::Usb = unsafe { usbhs::Usb::from_ptr(0x4002_3400usize as _) };
 pub const EXTEND: extend::Extend = unsafe { extend::Extend::from_ptr(0x4002_3800usize as _) };
 pub const RNG: rng::Rng = unsafe { rng::Rng::from_ptr(0x4002_3c00usize as _) };
 pub const PFIC: pfic::Pfic = unsafe { pfic::Pfic::from_ptr(0xe000_e000usize as _) };
@@ -499,8 +499,8 @@ pub mod systick;
 pub mod timer;
 #[path = "../../peripherals/usart_common.rs"]
 pub mod usart;
-#[path = "../../peripherals/usb_v3hs.rs"]
-pub mod usb;
+#[path = "../../peripherals/usbhs_v3.rs"]
+pub mod usbhs;
 pub const CORE_INDEX: usize = 0;
 pub const FLASH_BASE: usize = 0;
 pub const FLASH_SIZE: usize = 131072;
