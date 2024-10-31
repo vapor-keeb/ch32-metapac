@@ -417,9 +417,7 @@ pub(crate) static REGISTERS: IR = IR {
                         Register {
                             access: Access::ReadWrite,
                             bit_size: 32,
-                            fieldset: Some(
-                                "EpDma",
-                            ),
+                            fieldset: None,
                         },
                     ),
                 },
@@ -441,9 +439,7 @@ pub(crate) static REGISTERS: IR = IR {
                         Register {
                             access: Access::ReadWrite,
                             bit_size: 32,
-                            fieldset: Some(
-                                "EpDma",
-                            ),
+                            fieldset: None,
                         },
                     ),
                 },
@@ -465,9 +461,7 @@ pub(crate) static REGISTERS: IR = IR {
                         Register {
                             access: Access::ReadWrite,
                             bit_size: 32,
-                            fieldset: Some(
-                                "EpDma",
-                            ),
+                            fieldset: None,
                         },
                     ),
                 },
@@ -791,9 +785,7 @@ pub(crate) static REGISTERS: IR = IR {
                         Register {
                             access: Access::ReadWrite,
                             bit_size: 32,
-                            fieldset: Some(
-                                "EpDma",
-                            ),
+                            fieldset: None,
                         },
                     ),
                 },
@@ -808,9 +800,7 @@ pub(crate) static REGISTERS: IR = IR {
                         Register {
                             access: Access::ReadWrite,
                             bit_size: 32,
-                            fieldset: Some(
-                                "EpDma",
-                            ),
+                            fieldset: None,
                         },
                     ),
                 },
@@ -1154,30 +1144,6 @@ pub(crate) static REGISTERS: IR = IR {
                             },
                         ),
                     ),
-                    enumm: None,
-                },
-            ],
-        },
-        FieldSet {
-            name: "EpDma",
-            extends: None,
-            description: Some(
-                "USB endpoint DMA buffer address.",
-            ),
-            bit_size: 32,
-            fields: &[
-                Field {
-                    name: "addr",
-                    description: Some(
-                        "USB endpoint DMA buffer address. 4byte aligned.",
-                    ),
-                    bit_offset: BitOffset::Regular(
-                        RegularBitOffset {
-                            offset: 0,
-                        },
-                    ),
-                    bit_size: 17,
-                    array: None,
                     enumm: None,
                 },
             ],

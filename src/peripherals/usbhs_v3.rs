@@ -153,18 +153,18 @@ impl Usbd {
     }
     #[doc = "endpoint 0 DMA buffer address."]
     #[inline(always)]
-    pub const fn ep0_dma(self) -> crate::common::Reg<regs::EpDma, crate::common::RW> {
+    pub const fn ep0_dma(self) -> crate::common::Reg<u32, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x1cusize) as _) }
     }
     #[doc = "endpoint n (n=1-15) DMA RX buffer address."]
     #[inline(always)]
-    pub const fn ep_rx_dma(self, n: usize) -> crate::common::Reg<regs::EpDma, crate::common::RW> {
+    pub const fn ep_rx_dma(self, n: usize) -> crate::common::Reg<u32, crate::common::RW> {
         assert!(n < 15usize);
         unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x20usize + n * 4usize) as _) }
     }
     #[doc = "endpoint n (n=1-15) DMA TX buffer address."]
     #[inline(always)]
-    pub const fn ep_tx_dma(self, n: usize) -> crate::common::Reg<regs::EpDma, crate::common::RW> {
+    pub const fn ep_tx_dma(self, n: usize) -> crate::common::Reg<u32, crate::common::RW> {
         assert!(n < 15usize);
         unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x5cusize + n * 4usize) as _) }
     }
@@ -277,12 +277,12 @@ impl Usbh {
     }
     #[doc = "USB host receive buffer start address"]
     #[inline(always)]
-    pub const fn rx_dma(self) -> crate::common::Reg<regs::EpDma, crate::common::RW> {
+    pub const fn rx_dma(self) -> crate::common::Reg<u32, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x24usize) as _) }
     }
     #[doc = "USB host transmit buffer start address"]
     #[inline(always)]
-    pub const fn tx_dma(self) -> crate::common::Reg<regs::EpDma, crate::common::RW> {
+    pub const fn tx_dma(self) -> crate::common::Reg<u32, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.add(0x28usize) as _) }
     }
     #[doc = "USB host receive maximum length packet register"]
@@ -511,29 +511,6 @@ pub mod regs {
         #[inline(always)]
         fn default() -> EpConfig {
             EpConfig(0)
-        }
-    }
-    #[doc = "USB endpoint DMA buffer address."]
-    #[repr(transparent)]
-    #[derive(Copy, Clone, Eq, PartialEq)]
-    pub struct EpDma(pub u32);
-    impl EpDma {
-        #[doc = "USB endpoint DMA buffer address. 4byte aligned."]
-        #[inline(always)]
-        pub const fn addr(&self) -> u32 {
-            let val = (self.0 >> 0usize) & 0x0001_ffff;
-            val as u32
-        }
-        #[doc = "USB endpoint DMA buffer address. 4byte aligned."]
-        #[inline(always)]
-        pub fn set_addr(&mut self, val: u32) {
-            self.0 = (self.0 & !(0x0001_ffff << 0usize)) | (((val as u32) & 0x0001_ffff) << 0usize);
-        }
-    }
-    impl Default for EpDma {
-        #[inline(always)]
-        fn default() -> EpDma {
-            EpDma(0)
         }
     }
     #[doc = "endpoint n acceptable length."]
