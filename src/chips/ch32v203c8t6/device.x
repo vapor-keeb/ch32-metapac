@@ -45,3 +45,4 @@ PROVIDE(USBHD = DefaultHandler);
 PROVIDE(USBHD_WKUP = DefaultHandler);
 PROVIDE(UART4 = DefaultHandler);
 PROVIDE(DMA1_CHANNEL8 = DefaultHandler);
+PROVIDE(OTG_FS = DefaultHandler);

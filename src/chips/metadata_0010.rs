@@ -1946,6 +1946,10 @@ pub(crate) static INTERRUPTS: &[Interrupt] = &[
         name: "DMA1_CHANNEL8",
         number: 62,
     },
+    Interrupt {
+        name: "OTG_FS",
+        number: 83,
+    },
 ];
 pub(crate) static DMA_CHANNELS: &[DmaChannel] = &[
     DmaChannel {

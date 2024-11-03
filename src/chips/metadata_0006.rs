@@ -2037,16 +2037,10 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
             },
         ],
         dma_channels: &[],
-        interrupts: &[
-            PeripheralInterrupt {
-                signal: "GLOBAL",
-                interrupt: "USBHD",
-            },
-            PeripheralInterrupt {
-                signal: "WAKEUP",
-                interrupt: "USBHD_WKUP",
-            },
-        ],
+        interrupts: &[PeripheralInterrupt {
+            signal: "GLOBAL",
+            interrupt: "OTG_FS",
+        }],
     },
     Peripheral {
         name: "CAN1",
@@ -2315,6 +2309,10 @@ pub(crate) static INTERRUPTS: &[Interrupt] = &[
     Interrupt {
         name: "DMA1_CHANNEL8",
         number: 62,
+    },
+    Interrupt {
+        name: "OTG_FS",
+        number: 83,
     },
 ];
 pub(crate) static DMA_CHANNELS: &[DmaChannel] = &[

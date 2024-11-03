@@ -52,3 +52,4 @@ PROVIDE(UART4 = DefaultHandler);
 PROVIDE(DMA1_CHANNEL8 = DefaultHandler);
 PROVIDE(OSC32KCAL = DefaultHandler);
 PROVIDE(OSC_WKUP = DefaultHandler);
+PROVIDE(OTG_FS = DefaultHandler);

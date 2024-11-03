@@ -94,6 +94,8 @@ pub enum Interrupt {
     UART4 = 61,
     #[doc = "62 - DMA1_CHANNEL8"]
     DMA1_CHANNEL8 = 62,
+    #[doc = "83 - OTG_FS"]
+    OTG_FS = 83,
 }
 unsafe impl crate::InterruptNumber for Interrupt {
     #[inline(always)]
@@ -151,6 +153,7 @@ mod _vectors {
         fn USBHD_WKUP();
         fn UART4();
         fn DMA1_CHANNEL8();
+        fn OTG_FS();
     }
     pub union Vector {
         _handler: unsafe extern "C" fn(),
@@ -158,7 +161,7 @@ mod _vectors {
     }
     #[link_section = ".vector_table.external_interrupts"]
     #[no_mangle]
-    pub static __EXTERNAL_INTERRUPTS: [Vector; 47] = [
+    pub static __EXTERNAL_INTERRUPTS: [Vector; 68] = [
         Vector { _handler: WWDG },
         Vector { _handler: PVD },
         Vector { _handler: TAMPER },
@@ -234,6 +237,27 @@ mod _vectors {
         Vector {
             _handler: DMA1_CHANNEL8,
         },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _reserved: 0 },
+        Vector { _handler: OTG_FS },
     ];
 }
 pub const TIM2: timer::Gptm = unsafe { timer::Gptm::from_ptr(0x4000_0000usize as _) };
