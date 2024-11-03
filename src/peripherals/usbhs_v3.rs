@@ -178,7 +178,7 @@ impl Usbd {
     #[inline(always)]
     pub const fn ep_t_len(self, n: usize) -> crate::common::Reg<regs::EpLen, crate::common::RW> {
         assert!(n < 16usize);
-        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0xd8usize + n * 12usize) as _) }
+        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0xd8usize + n * 4usize) as _) }
     }
     #[doc = "endpoint n (n=0-15) send control."]
     #[inline(always)]
@@ -187,7 +187,7 @@ impl Usbd {
         n: usize,
     ) -> crate::common::Reg<regs::EpTxCtrl, crate::common::RW> {
         assert!(n < 16usize);
-        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0xdausize + n * 12usize) as _) }
+        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0xdausize + n * 4usize) as _) }
     }
     #[doc = "endpoint n (n=0-15) receive control."]
     #[inline(always)]
@@ -196,7 +196,7 @@ impl Usbd {
         n: usize,
     ) -> crate::common::Reg<regs::EpRxCtrl, crate::common::RW> {
         assert!(n < 16usize);
-        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0xdbusize + n * 12usize) as _) }
+        unsafe { crate::common::Reg::from_ptr(self.ptr.add(0xdbusize + n * 4usize) as _) }
     }
 }
 #[doc = "USB host register block"]

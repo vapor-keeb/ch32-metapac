@@ -498,7 +498,7 @@ pub(crate) static REGISTERS: IR = IR {
                         Array::Regular(
                             RegularArray {
                                 len: 16,
-                                stride: 12,
+                                stride: 4,
                             },
                         ),
                     ),
@@ -522,7 +522,7 @@ pub(crate) static REGISTERS: IR = IR {
                         Array::Regular(
                             RegularArray {
                                 len: 16,
-                                stride: 12,
+                                stride: 4,
                             },
                         ),
                     ),
@@ -546,7 +546,7 @@ pub(crate) static REGISTERS: IR = IR {
                         Array::Regular(
                             RegularArray {
                                 len: 16,
-                                stride: 12,
+                                stride: 4,
                             },
                         ),
                     ),
