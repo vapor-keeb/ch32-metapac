@@ -1973,118 +1973,6 @@ pub(crate) static PERIPHERALS: &[Peripheral] = &[
             interrupt: "PIOC",
         }],
     },
-    Peripheral {
-        name: "USBFS",
-        address: 0x40023400,
-        registers: Some(PeripheralRegisters {
-            kind: "usb",
-            version: "x0fs",
-            block: "USB",
-            ir: &usb::REGISTERS,
-        }),
-        rcc: Some(PeripheralRcc {
-            bus_clock: "HCLK",
-            kernel_clock: Clock("HCLK"),
-            enable: Some(PeripheralRccRegister {
-                register: "AHBPCENR",
-                field: "USBFSEN",
-            }),
-            reset: Some(PeripheralRccRegister {
-                register: "AHBRSTR",
-                field: "USBFSRST",
-            }),
-            stop_mode: StopMode::Stop1,
-        }),
-        remap: None,
-        pins: &[
-            PeripheralPin {
-                pin: "PC16",
-                signal: "DM",
-                remap: None,
-            },
-            PeripheralPin {
-                pin: "PC17",
-                signal: "DP",
-                remap: None,
-            },
-        ],
-        dma_channels: &[],
-        interrupts: &[
-            PeripheralInterrupt {
-                signal: "GLOBAL",
-                interrupt: "USBFS",
-            },
-            PeripheralInterrupt {
-                signal: "WKUP",
-                interrupt: "USBFS_WKUP",
-            },
-        ],
-    },
-    Peripheral {
-        name: "AWU",
-        address: 0x40026400,
-        registers: Some(PeripheralRegisters {
-            kind: "awu",
-            version: "x0",
-            block: "AWU",
-            ir: &awu::REGISTERS,
-        }),
-        rcc: None,
-        remap: None,
-        pins: &[],
-        dma_channels: &[],
-        interrupts: &[PeripheralInterrupt {
-            signal: "GLOBAL",
-            interrupt: "AWU",
-        }],
-    },
-    Peripheral {
-        name: "USBPD",
-        address: 0x40027000,
-        registers: Some(PeripheralRegisters {
-            kind: "usbpd",
-            version: "x0",
-            block: "USBPD",
-            ir: &usbpd::REGISTERS,
-        }),
-        rcc: Some(PeripheralRcc {
-            bus_clock: "HCLK",
-            kernel_clock: Clock("HCLK"),
-            enable: Some(PeripheralRccRegister {
-                register: "AHBPCENR",
-                field: "USBPD",
-            }),
-            reset: Some(PeripheralRccRegister {
-                register: "AHBRSTR",
-                field: "USBPDRST",
-            }),
-            stop_mode: StopMode::Stop1,
-        }),
-        remap: None,
-        pins: &[
-            PeripheralPin {
-                pin: "PC14",
-                signal: "CC1",
-                remap: None,
-            },
-            PeripheralPin {
-                pin: "PC15",
-                signal: "CC2",
-                remap: None,
-            },
-        ],
-        dma_channels: &[],
-        interrupts: &[
-            PeripheralInterrupt {
-                signal: "GLOBAL",
-                interrupt: "USBPD",
-            },
-            PeripheralInterrupt {
-                signal: "WKUP",
-                interrupt: "USBPD_WKUP",
-            },
-        ],
-    },
 ];
 pub(crate) static INTERRUPTS: &[Interrupt] = &[
     Interrupt {
@@ -2098,6 +1986,10 @@ pub(crate) static INTERRUPTS: &[Interrupt] = &[
     Interrupt {
         name: "FLASH",
         number: 18,
+    },
+    Interrupt {
+        name: "LEDPWM",
+        number: 19,
     },
     Interrupt {
         name: "EXTI7_0",
@@ -2208,14 +2100,6 @@ pub(crate) static INTERRUPTS: &[Interrupt] = &[
         number: 46,
     },
     Interrupt {
-        name: "PIOC",
-        number: 47,
-    },
-    Interrupt {
-        name: "OPA",
-        number: 48,
-    },
-    Interrupt {
         name: "USBPD",
         number: 49,
     },
@@ -2302,8 +2186,6 @@ pub(crate) static DMA_CHANNELS: &[DmaChannel] = &[
 pub mod adc;
 #[path = "../registers/afio_x0.rs"]
 pub mod afio;
-#[path = "../registers/awu_x0.rs"]
-pub mod awu;
 #[path = "../registers/dma_v1.rs"]
 pub mod dma;
 #[path = "../registers/exti_common.rs"]
@@ -2328,7 +2210,3 @@ pub mod systick;
 pub mod timer;
 #[path = "../registers/usart_common.rs"]
 pub mod usart;
-#[path = "../registers/usb_x0fs.rs"]
-pub mod usb;
-#[path = "../registers/usbpd_x0.rs"]
-pub mod usbpd;
